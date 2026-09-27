@@ -1,0 +1,1819 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><script>(function(){try{
+var W=window;if(W.__TOY_PERF__){return;}
+var P=W.performance;if(!P||!P.getEntriesByType){return;}
+var M={fw:[],sent:false};W.__TOY_PERF__=M;
+M.pnow=function(){try{return P.now?P.now():(Date.now()-M.t0);}catch(e){return 0;}};
+M.head=Math.round(P.now?P.now():0);
+M.t0=Math.round((P.timeOrigin!==undefined&&P.timeOrigin!==null)?P.timeOrigin:
+ ((P.timing&&P.timing.navigationStart)||Date.now()));
+M.sid=(W.crypto&&W.crypto.randomUUID)?W.crypto.randomUUID():
+ (Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,10));
+M.fcp=undefined;
+M.readFCP=function(){try{
+ if(M.fcp!==undefined){return M.fcp;}
+ var es=P.getEntriesByType("paint")||[];
+ for(var i=0;i<es.length;i++){
+  if(es[i].name==="first-contentful-paint"){M.fcp=Math.round(es[i].startTime);return M.fcp;}}
+}catch(e){}
+return M.fcp;};
+try{var po=new W.PerformanceObserver(function(l){try{
+ var es=l.getEntries();for(var i=0;i<es.length;i++){
+  if(es[i].name==="first-contentful-paint"&&M.fcp===undefined){M.fcp=Math.round(es[i].startTime);
+   try{if(M.onFCP){M.onFCP();}}catch(e){}}}
+}catch(e){}});
+try{po.observe({type:"paint",buffered:true});}catch(e){po.observe({entryTypes:["paint"]});}
+}catch(e){}
+M.probe=function(){try{
+ var hit=[];var d=document;
+ var add=function(k){if(hit.indexOf(k)<0){hit.push(k);}};
+ if(W.unityInstance||W.UnityLoader||W.createUnityInstance){add("unity");}
+ if(W.vm||W.Scratch||W.ScratchVM){add("scratch");}
+ if(W.cc||W.cocos){add("cocos");}
+ if(W.Godot){add("godot");}
+ if(W.PIXI){add("pixi");}
+ if(W.Phaser){add("phaser");}
+ if(W.THREE){add("three");}
+ if(W.BABYLON){add("babylon");}
+ if(W.WebAssembly&&W.Module&&(W.Module.asm||W.Module.wasmBinary||W._malloc)){add("wasm");}
+ if(W.Vue||d.querySelector&&d.querySelector("[data-v-app]")){add("vue");}
+ if(W.React||W.ReactDOM){add("react");}
+ for(var i=0;i<hit.length;i++){if(M.fw.indexOf(hit[i])<0){M.fw.push(hit[i]);}}
+}catch(e){}};
+M.kind=function(){try{
+ var cv=document.getElementsByTagName?document.getElementsByTagName("canvas"):[];
+ var engine=["unity","scratch","cocos","godot","pixi","phaser","three","babylon"];
+ var hasEngine=false;
+ for(var i=0;i<engine.length;i++){if(M.fw.indexOf(engine[i])>=0){hasEngine=true;break;}}
+ if(cv&&cv.length>0){return hasEngine?"canvas-engine":"canvas";}
+ return hasEngine?"dom-engine":"dom";
+}catch(e){return "unknown";}};
+M.collect=function(withKind){try{
+ var nav=(P.getEntriesByType("navigation")||[])[0]||{};
+ var o={toy_id:M.toyID,render_mode:M.renderMode,layer:M.layer,
+  session_id:M.sid,time_origin:M.t0};
+ var put=function(k,v){try{var x=Math.round(v||0);if(x>0){o[k]=x;}}catch(e){}};
+ put("ttfb",nav.responseStart);put("dcl",nav.domContentLoadedEventEnd);
+ put("load",nav.loadEventEnd);put("doc_bytes",nav.decodedBodySize);
+ put("head_ms",M.head);put("transfer_bytes",nav.transferSize);
+ put("encoded_bytes",nav.encodedBodySize);
+ if(withKind){M.probe();o.kind=M.kind();o.fw=M.fw.join(",");}
+ var fcp=M.readFCP();
+ if(fcp!==undefined){o.fcp=fcp;}
+ if(M.fcpEst!==undefined){o.fcp_est=M.fcpEst;}
+ if(M.selfArmed){put("ff_self",M.ffSelf);o.ff_self_src=M.ffSrc||(M.selfDone?"none":"pending");}
+ return o;
+}catch(e){return null;}};
+}catch(e){}})();(function(){try{
+var W=window;var M=W.__TOY_PERF__;if(!M){return;}
+var P=W.performance;if(!P){return;}
+M.fcpEst=undefined;
+M.armEst=function(){try{
+ if(M.estArmed){return;}M.estArmed=true;
+ if(!W.MutationObserver){return;}
+ var D=document;
+ var SKIP={SCRIPT:1,STYLE:1,LINK:1,META:1,HEAD:1,TITLE:1,NOSCRIPT:1,TEMPLATE:1};
+ var INK={IMG:1,SVG:1,VIDEO:1,INPUT:1,BUTTON:1,TEXTAREA:1,SELECT:1};
+ var vis=function(n){try{var s=W.getComputedStyle(n);
+  return !s||(s.display!=="none"&&s.visibility!=="hidden"&&s.opacity!=="0");
+ }catch(e){return true;}};
+ var scan=function(n,dep){try{
+  if(dep>14){return false;}
+  if(n.nodeType===3){return /\S/.test(n.nodeValue||"");}
+  if(n.nodeType!==1){return false;}
+  if(SKIP[n.tagName]){return false;}
+  if(!vis(n)){return false;}
+  if(INK[n.tagName]){return true;}
+  try{var s=W.getComputedStyle(n);
+   if(s&&s.backgroundImage&&s.backgroundImage!=="none"){return true;}}catch(e){}
+  var c=n.childNodes||[];
+  for(var i=0;i<c.length;i++){if(scan(c[i],dep+1)){return true;}}
+  return false;
+ }catch(e){return false;}};
+ var anc=function(n){try{var p=n.parentNode;
+  while(p&&p.nodeType===1){if(SKIP[p.tagName]||!vis(p)){return false;}p=p.parentNode;}
+  return true;
+ }catch(e){return true;}};
+ var ink=function(n){try{
+  if(!n||!D.body){return false;}
+  if(n!==D.body&&(!D.body.contains||!D.body.contains(n))){return false;}
+  if(!anc(n)){return false;}
+  return scan(n,0);
+ }catch(e){return false;}};
+ var now=function(){try{return Math.round(P.now?P.now():(Date.now()-M.t0));}catch(e){return 0;}};
+ var mark=function(){try{
+  if(M.fcpEst!==undefined){return;}
+  var set=function(){try{if(M.fcpEst===undefined){M.fcpEst=now();}}catch(e){}};
+  if(W.requestAnimationFrame){W.requestAnimationFrame(function(){try{setTimeout(set,0);}catch(e){set();}});}
+  else{setTimeout(set,16);}
+ }catch(e){}};
+ var both=function(){try{mark();if(M.selfMark){M.selfMark();}}catch(e){}};
+ var mo=new W.MutationObserver(function(rs){try{
+  for(var i=0;i<rs.length;i++){
+   var a=rs[i].addedNodes||[];
+   for(var j=0;j<a.length;j++){if(ink(a[j])){both();mo.disconnect();return;}}
+   if(rs[i].type==="characterData"&&ink(rs[i].target)){both();mo.disconnect();return;}}
+ }catch(e){}});
+ mo.observe(D,{childList:true,subtree:true,characterData:true});
+}catch(e){}};
+}catch(e){}})();(function(){try{
+var W=window;var M=W.__TOY_PERF__;if(!M){return;}
+var P=W.performance;if(!P){return;}
+M.ffSelf=undefined;M.ffSrc=undefined;M.cvs=[];
+var hit=function(src){try{
+ if(M.ffSelf!==undefined){return;}
+ M.ffSelf=Math.round(M.pnow());M.ffSrc=src;M.unhookCtx();
+ try{if(M.onSelf){M.onSelf();}}catch(e){}
+}catch(e){}};
+M.unhookCtx=function(){try{
+ var H=W.HTMLCanvasElement;
+ if(M.gcOrig&&H&&H.prototype&&H.prototype.getContext===M.gcWrap){H.prototype.getContext=M.gcOrig;}
+ M.gcOrig=null;M.gcWrap=null;M.cvs=[];
+}catch(e){}};
+M.selfMark=function(){try{
+ if(M.ffSelf!==undefined||!W.requestAnimationFrame){return;}
+ W.requestAnimationFrame(function(){try{
+  W.requestAnimationFrame(function(){try{hit("raf2");}catch(e){}});
+ }catch(e){}});
+}catch(e){}};
+M.armSelf=function(){try{
+ if(M.selfArmed){return;}M.selfArmed=true;
+ var H=W.HTMLCanvasElement;
+ if(!H||!H.prototype||typeof H.prototype.getContext!=="function"){return;}
+ var orig=H.prototype.getContext;
+ M.gcOrig=orig;
+ M.gcWrap=function(t){
+  var r=orig.apply(this,arguments);
+  try{if(r&&M.cvs.length<8){
+   var dup=false;
+   for(var i=0;i<M.cvs.length;i++){if(M.cvs[i].c===this){dup=true;break;}}
+   if(!dup){M.cvs.push({c:this,t:(""+t).toLowerCase(),x:r,bad:false});}}}catch(e){}
+  return r;};
+ H.prototype.getContext=M.gcWrap;
+}catch(e){}};
+M.probeCanvas=function(round){try{
+ if(M.ffSelf!==undefined){return;}
+ var D=document;var gl=false;var tainted=false;
+ for(var i=0;i<M.cvs.length;i++){
+  var q=M.cvs[i];var cv=q.c;var x=q.x;
+  if(q.t.indexOf("webgl")>=0||q.t.indexOf("webgpu")>=0){gl=true;continue;}
+  if(q.bad||q.t!=="2d"||!x||!x.getImageData||!cv){continue;}
+  if(D.body&&D.body.contains&&!D.body.contains(cv)){continue;}
+  if(!cv.clientWidth||!cv.clientHeight||!cv.width||!cv.height){continue;}
+  var w=cv.width,h=cv.height;
+  var pts=[[w>>1,h>>1],[0,0],[w-1,h-1],[w>>2,h>>2]];
+  var p=pts[(round||0)%pts.length];
+  try{
+   var d=x.getImageData(p[0],p[1],1,1).data;
+   if(d[3]!==0||d[0]!==0||d[1]!==0||d[2]!==0){hit("pixel");return;}
+  }catch(er){q.bad=true;if(er&&er.name==="SecurityError"){tainted=true;}}
+ }
+ if(M.ffSrc===undefined){if(gl){M.ffSrc="gl-blind";}else if(tainted){M.ffSrc="tainted";}}
+}catch(e){}};
+}catch(e){}})();(function(){try{
+var W=window;var M=W.__TOY_PERF__;if(!M){return;}
+var NS="toy-shell-ability";
+M.toyID=12679968250880;M.renderMode=2;
+M.layer="content";
+M.armEst();M.armSelf();
+try{var pn=0;var pt=M.pnow();var pdone=function(){try{clearInterval(pk);}catch(e){}
+ try{if(M.unhookCtx){M.unhookCtx();}}catch(e){}
+ M.selfDone=true;try{if(M.onSelf){M.onSelf();}}catch(e){}};
+var pk=setInterval(function(){try{
+ M.probeCanvas(pn);
+ if(M.ffSelf!==undefined||++pn>=12||
+  (M.pnow()-pt)>=3600){pdone();}
+}catch(e){pdone();}},300);}catch(e){}
+M.seq=0;
+var flush=function(rs,up){try{
+ if(up==="self"){if(M.sent3){return;}M.sent3=true;}
+ else if(up){if(M.sent2){return;}M.sent2=true;}
+ else{if(M.sent){return;}M.sent=true;}
+ var o=M.collect(true);if(!o){return;}
+ o.flush_reason=up?(up==="self"?"self":"up"):rs;o.seq=++M.seq;o.ns=NS;o.type="perf";
+ M.pendingOut=(o.ff_self_src==="pending");
+ if(W.parent&&W.parent!==W){W.parent.postMessage(o,"*");}
+}catch(e){}};
+try{var n=0;var tk=setInterval(function(){try{M.probe();if(++n>8||M.done){clearInterval(tk);}}catch(e){}},400);}catch(e){}
+var arm=function(){try{
+ var waited=0;
+ var stop=function(t){try{M.done=true;clearInterval(t);}catch(e){}};
+ var tick=setInterval(function(){try{
+  waited+=300;
+  if(M.readFCP()!==undefined){stop(tick);flush("fcp",M.sent);return;}
+  if(M.fcpEst!==undefined){flush("est",false);}
+  if(waited>=5000){stop(tick);flush("bound",false);}
+ }catch(e){stop(tick);flush("err",false);}},300);
+ M.onFCP=function(){try{
+  if(!M.sent||M.sent2){return;}
+  stop(tick);flush("fcp",true);
+ }catch(e){}};
+ M.onSelf=function(){try{
+  if(!M.sent||M.sent3||!M.pendingOut){return;}
+  flush("self","self");
+ }catch(e){}};
+}catch(e){flush("err",false);}};
+if(document.readyState==="complete"){arm();}
+else{W.addEventListener("load",arm,false);}
+}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>积木大比拼</title>
+<script src="//s1.hdslb.com/bfs/seed/toy/app/sdk/toy-sdk.js" async></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, 'PingFang SC', 'Helvetica Neue', sans-serif;
+  background: #0a0a1a;
+  color: #e0e0e0;
+  overflow: hidden;
+  height: 100vh;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+#app { display: flex; flex-direction: column; height: 100vh; max-width: 500px; margin: 0 auto; padding-bottom: env(safe-area-inset-bottom, 0px); }
+header {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+  padding: 6px 10px;
+  background: linear-gradient(180deg, #0f0f2a 0%, #0a0a1a 100%);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  min-height: 40px; gap: 4px 8px;
+}
+header h1 {
+  font-size: 14px; font-weight: 700;
+  background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcbff, #6bff6b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.header-stats { display: flex; align-items: center; gap: 10px; font-size: 12px; color: rgba(255,255,255,0.5); }
+.header-stats span em { font-style: normal; color: #fff; }
+#lb-badge { padding: 2px 6px; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.4); font-size: 12px; cursor: pointer; font-family: inherit; transition: all 0.12s; white-space: nowrap; }
+#lb-badge:active { color: #ffd93d; border-color: rgba(255,217,61,0.3); background: rgba(255,217,61,0.06); }
+#profile-name { padding: 2px 8px; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.45); font-size: 11px; font-family: inherit; white-space: nowrap; max-width: 80px; overflow: hidden; text-overflow: ellipsis; }
+#progress-display { font-size: 10px; color: rgba(255,255,255,0.25); }
+#board-wrap {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  padding: 8px; position: relative; min-height: 0;
+}
+#board {
+  display: block; width: 100%; max-width: 420px; aspect-ratio: 1/1;
+  background: #0d0d1f; border-radius: 12px;
+  box-shadow: 0 0 30px rgba(100,100,255,0.05), inset 0 0 60px rgba(0,0,0,0.5);
+  cursor: pointer;
+  touch-action: none;
+}
+#palette {
+  padding: 10px 12px 12px;
+  background: linear-gradient(0deg, #141438 0%, #0f0f2a 100%);
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+#palette-label {
+  font-size: 10px; color: rgba(255,255,255,0.25);
+  letter-spacing: 1px; text-align: center; margin-bottom: 6px;
+}
+#palette-pieces {
+  display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+  min-height: 42px;
+}
+.piece-btn {background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.18);width:64px;height:56px;
+  background: rgba(255,255,255,0.07);
+  border: 2px solid rgba(255,255,255,0.15);
+  border-radius: 10px; cursor: pointer; transition: all 0.12s;
+  padding: 4px; display: flex; align-items: center; justify-content: center;
+  width: 64px; height: 56px; position: relative;
+  touch-action: none;
+}
+.piece-btn:hover, .piece-btn:active {
+  border-color: rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.07);
+}
+.piece-btn.selected {
+  border-color: #fff;
+  background: rgba(255,255,255,0.1);
+  box-shadow: 0 0 10px rgba(255,255,255,0.12);
+}
+.piece-btn canvas { display: block; width: 100%; height: 100%; }
+#actions {
+  display: flex; justify-content: center; gap: 12px; padding: 8px 12px 28px;
+  background: #0a0a1a;
+}
+.btn {
+  flex: 1; max-width: 130px;
+  padding: 10px 12px; border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 22px; background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.55); font-size: 14px; cursor: pointer;
+  transition: all 0.12s; font-family: inherit;
+  touch-action: manipulation;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.btn:active { background: rgba(255,255,255,0.08); transform: scale(0.96); }
+#btn-rotate.active {
+  border-color: #ffd93d;
+  color: #ffd93d;
+  background: rgba(255,217,61,0.12);
+  box-shadow: 0 0 12px rgba(255,217,61,0.2);
+}
+#btn-rotate:not(.active) {
+  opacity: 0.35;
+  cursor: default;
+}
+#btn-reset.active {
+  border-color: #6bcbff;
+  color: #6bcbff;
+  background: rgba(107,203,255,0.12);
+  box-shadow: 0 0 12px rgba(107,203,255,0.2);
+}
+#btn-reset:not(.active) {
+  opacity: 0.35;
+  cursor: default;
+}
+#btn-undo.active {
+  border-color: #6bff6b;
+  color: #6bff6b;
+  background: rgba(107,255,107,0.12);
+  box-shadow: 0 0 12px rgba(107,255,107,0.2);
+}
+#btn-undo:not(.active) {
+  opacity: 0.35;
+  cursor: default;
+}
+.bi{display:inline-block;vertical-align:middle;line-height:1}
+.btn-primary {
+  border-color: rgba(255,255,255,0.2); color: #fff;
+  background: rgba(255,255,255,0.06);
+}
+/* Profile management overlay */
+#profile-overlay { display: none; position: fixed; inset: 0; z-index: 120; background: rgba(5,5,15,0.85); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); align-items: center; justify-content: center; }
+#profile-overlay.show { display: flex; }
+#profile-box { background: linear-gradient(135deg, #1a1a3a, #0d0d1f); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 20px 18px 16px; width: 92%; max-width: 320px; max-height: 70vh; overflow-y: auto; box-shadow: 0 0 60px rgba(100,100,255,0.1); }
+#profile-box h2 { font-size: 16px; text-align: center; margin-bottom: 14px; color: rgba(255,255,255,0.7); }
+.profile-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; margin-bottom: 6px; border-radius: 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); cursor: pointer; transition: all 0.12s; font-size: 13px; color: rgba(255,255,255,0.6); }
+.profile-item:active { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); }
+.profile-item.active { border-color: #ffd93d; background: rgba(255,217,61,0.06); color: #ffd93d; }
+.profile-item .pi-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.profile-item .pi-stats { font-size: 10px; color: rgba(255,255,255,0.3); margin-left: 8px; white-space: nowrap; }
+.profile-item .pi-del { font-size: 14px; color: rgba(255,100,100,0.4); padding: 0 4px; cursor: pointer; }
+.profile-item .pi-del:active { color: rgba(255,100,100,0.8); }
+#profile-add { display: block; width: 100%; padding: 8px; margin-top: 4px; border: 1px dashed rgba(255,255,255,0.12); border-radius: 10px; background: transparent; color: rgba(255,255,255,0.3); font-size: 13px; cursor: pointer; font-family: inherit; transition: all 0.12s; }
+#profile-add:active { color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.25); }
+#profile-close { display: block; margin: 12px auto 0; padding: 6px 24px; border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; background: transparent; color: rgba(255,255,255,0.35); font-size: 12px; cursor: pointer; font-family: inherit; transition: all 0.12s; }
+#profile-close:active { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.25); }
+
+/* Leaderboard overlay */
+#lb-overlay { display: none; position: fixed; inset: 0; z-index: 110; background: rgba(5,5,15,0.88); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); align-items: center; justify-content: center; }
+#lb-overlay.show { display: flex; }
+#lb-box { background: linear-gradient(135deg, #1a1a3a, #0d0d1f); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 20px 18px 16px; width: 92%; max-width: 360px; max-height: 80vh; overflow-y: auto; box-shadow: 0 0 60px rgba(100,100,255,0.1); }
+#lb-box h2 { font-size: 18px; text-align: center; margin-bottom: 12px; color: #ffd93d; }
+.lb-tabs { display: flex; gap: 0; margin-bottom: 14px; border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+.lb-tab { flex: 1; padding: 6px 0; border: none; background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.4); font-size: 12px; cursor: pointer; font-family: inherit; transition: all 0.12s; text-align: center; }
+.lb-tab.active { background: rgba(255,217,61,0.12); color: #ffd93d; font-weight: 600; }
+.lb-tab:not(.active):active { background: rgba(255,255,255,0.06); }
+.lb-empty { text-align: center; color: rgba(255,255,255,0.25); font-size: 13px; padding: 20px 0; }
+.lb-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.lb-table th { color: rgba(255,255,255,0.3); font-weight: 400; padding: 5px 6px; border-bottom: 1px solid rgba(255,255,255,0.06); text-align: left; }
+.lb-table th:first-child { width: 32px; text-align: center; }
+.lb-table th:last-child,
+.lb-table td:last-child { text-align: left; }
+.lb-table td { padding: 6px 6px; border-bottom: 1px solid rgba(255,255,255,0.03); color: rgba(255,255,255,0.6); }
+.lb-table td:first-child { text-align: center; font-size: 14px; }
+.lb-table tr:first-child td { color: #ffd93d; font-weight: 600; }
+.lb-rank-1 { color: #ffd93d !important; }
+.lb-rank-2 { color: #c0c0c0 !important; }
+.lb-rank-3 { color: #cd7f32 !important; }
+.lb-close { display: block; margin: 14px auto 0; padding: 6px 24px; border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; background: transparent; color: rgba(255,255,255,0.4); font-size: 12px; cursor: pointer; font-family: inherit; transition: all 0.12s; }
+.lb-close:active { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); }
+
+#overlay { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(5,5,15,0.85); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); align-items: center; justify-content: center; }
+#overlay.show { display: flex; }
+#overlay-box { background: linear-gradient(135deg, #1a1a3a, #0d0d1f); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 28px 24px; text-align: center; max-width: 300px; width: 90%; box-shadow: 0 0 50px rgba(100,100,255,0.08); }
+#overlay-box h2 { font-size: 20px; margin-bottom: 6px; }
+#overlay-box p { font-size: 14px; color: rgba(255,255,255,0.5); margin-bottom: 4px; line-height: 1.5; }
+#overlay-box .highlight { color: #ffd93d; font-size: 32px; font-weight: 700; margin: 10px 0; }
+#ov-emoji { font-size: 44px; margin-bottom: 6px; }
+.overlay-btn { margin-top: 14px; padding: 10px 32px; border: none; border-radius: 22px; background: linear-gradient(135deg, #ff6b6b, #ff8e53); color: #fff; font-size: 15px; font-weight: 600; cursor: pointer; transition: transform 0.12s; font-family: inherit; }
+.overlay-btn:active { transform: scale(0.95); }
+.overlay-btn-cancel { margin-top: 10px; padding: 8px 24px; border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; background: transparent; color: rgba(255,255,255,0.4); font-size: 13px; cursor: pointer; transition: all 0.12s; font-family: inherit; display: block; margin-left: auto; margin-right: auto; }
+.overlay-btn-cancel:hover { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.25); }
+
+@media (max-width: 400px) { .piece-btn { width:56px; height:50px; } 
+  .piece-btn { width: 56px; height: 50px; }
+  #overlay-box { padding: 20px 16px; }
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>⬛ 积木大比拼</h1>
+    <div class="header-stats">
+      <button id="lb-badge">🏆 排行</button>
+      <span id="profile-name">👤 玩家1</span>
+      <span>关卡 <em id="level-display">1</em></span>
+      <span>⏱ <em id="timer-display">00:00</em></span>
+    </div>
+  </header>
+  <div style="text-align:center;padding:2px 0 0"><span id="progress-display"></span></div>
+  <div id="board-wrap"><canvas id="board"></canvas></div>
+  <div id="palette">
+    <div id="palette-label">点击选中积木 · 拖拽到棋盘放置 · 选中后可旋转</div>
+    <div id="palette-pieces"></div>
+  </div>
+  <div id="actions">
+    <button class="btn" id="btn-rotate">🔄 旋转</button>
+    <button class="btn" id="btn-undo">↩ 撤销</button>
+    <button class="btn" id="btn-reset"><span class="bi">🔁</span> 重开</button>
+  </div>
+</div>
+<div id="profile-overlay">
+  <div id="profile-box">
+    <h2>👤 切换玩家</h2>
+    <div id="profile-list"></div>
+    <button id="profile-add">＋ 新建玩家</button>
+    <button id="profile-close">关闭</button>
+  </div>
+</div>
+<div id="overlay">
+  <div id="overlay-box">
+    <div id="ov-emoji">🧩</div>
+    <h2 id="ov-title">第 1 关</h2>
+    <p id="ov-desc">用积木填满亮光的区域</p>
+    <div class="highlight" id="ov-stats" style="display:none"></div>
+    <p id="ov-sub"></p>
+    <button class="overlay-btn" id="ov-btn">开始！</button>
+    <button class="overlay-btn-cancel" id="ov-btn-cancel" style="display:none">取消</button>
+  </div>
+</div>
+<div id="lb-overlay">
+  <div id="lb-box">
+    <h2>🏆 排行榜</h2>
+    <div class="lb-tabs">
+      <button class="lb-tab active" id="lb-tab-time">⏱ 按游玩时间</button>
+      <button class="lb-tab" id="lb-tab-level">🧩 按过关</button>
+    </div>
+    <div id="lb-content"></div>
+    <button class="lb-close" id="lb-close">关闭</button>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   PIECE DEFINITIONS — 16 shapes across 4 colors
+   Each piece defined by relative cell positions (row, col)
+   ============================================================ */
+const COLOR_HEX = { red:'#ff6b6b', yellow:'#ffd93d', blue:'#6bcbff', green:'#6bff6b' };
+const COLOR_GLOW = { red:'rgba(255,107,107,0.4)', yellow:'rgba(255,217,61,0.4)', blue:'rgba(107,203,255,0.4)', green:'rgba(107,255,107,0.4)' };
+
+const PIECE_DEFS = {
+  red: [
+    { cells: [[0,0]], name: '单格' },
+    { cells: [[0,0],[0,1],[0,2],[0,3]], name: 'I一字' },
+    { cells: [[0,0],[0,2],[1,0],[1,1],[1,2]], name: 'U凹槽' },
+    { cells: [[0,0],[1,0],[2,0],[2,1],[2,2]], name: 'V大拐' },
+  ],
+  yellow: [
+    { cells: [[0,0],[0,1]], name: '双格' },
+    { cells: [[0,0],[0,1],[0,2],[1,2]], name: 'L拐角' },
+    { cells: [[0,0],[1,0],[1,1],[2,1],[2,2]], name: 'W阶梯' },
+    { cells: [[0,1],[1,0],[1,1],[1,2],[2,1]], name: 'X十字' },
+  ],
+  blue: [
+    { cells: [[0,0],[0,1],[0,2]], name: '三连横' },
+    { cells: [[0,0],[0,1],[0,2],[1,1]], name: 'T字' },
+    { cells: [[0,0],[0,1],[1,1],[1,2]], name: 'Z折线' },
+    { cells: [[0,0],[0,1],[0,2],[1,1],[2,1]], name: 'T长柄' },
+  ],
+  green: [
+    { cells: [[0,0],[1,0],[1,1]], name: 'L三连' },
+    { cells: [[0,0],[0,1],[1,0],[1,1]], name: '田字' },
+    { cells: [[0,1],[0,2],[1,0],[1,1],[2,1]], name: 'F异形' },
+    { cells: [[0,0],[0,1],[0,2],[0,3],[1,0]], name: 'L长柄' },
+  ],
+};
+
+// Fast lookup
+const PIECE_LOOKUP = {};
+for (const [color, defs] of Object.entries(PIECE_DEFS)) {
+  for (const d of defs) {
+    PIECE_LOOKUP[color+':'+d.name] = d;
+  }
+}
+
+function getDef(color, name) {
+  return PIECE_LOOKUP[color+':'+name];
+}
+
+/* ============================================================
+   Piece class
+   ============================================================ */
+class Piece {
+  constructor(color, cells, name) {
+    this.color = color;
+    this._cells = cells.map(c => [...c]);
+    this.cells = cells.map(c => [...c]);
+    this.name = name;
+  }
+  rotate() {
+    const rotated = this.cells.map(([r,c]) => [c, -r]);
+    const minR = Math.min(...rotated.map(([r]) => r));
+    const minC = Math.min(...rotated.map(([_,c]) => c));
+    this.cells = rotated.map(([r,c]) => [r - minR, c - minC]);
+  }
+  get width() { return Math.max(...this.cells.map(([_,c]) => c)) + 1; }
+  get height() { return Math.max(...this.cells.map(([r]) => r)) + 1; }
+}
+
+/* ============================================================
+   LEVELS — designed by placing pieces on the grid (guaranteed solvable)
+   Each level: { pieces: [{color, name}], map: 8x8 }
+   ============================================================ */
+const GRID = 8;
+
+// Helper: generate map from placed piece definitions
+// placed = [{color, name, row, col, rotation}]
+function genLevel(placed) {
+  const map = Array.from({length: GRID}, () => Array(GRID).fill(0));
+  for (const pd of placed) {
+    const def = getDef(pd.color, pd.name);
+    const piece = new Piece(pd.color, def.cells.map(c => [...c]), pd.name);
+    for (let r = 0; r < pd.rotation; r++) piece.rotate();
+    for (const [pr, pc] of piece.cells) {
+      const ar = pd.row + pr, ac = pd.col + pc;
+      if (ar >= 0 && ar < GRID && ac >= 0 && ac < GRID) map[ar][ac] = 1;
+    }
+  }
+  return {
+    pieces: placed.map(p => ({color: p.color, name: p.name})),
+    map
+  };
+}
+
+const LEVELS = [
+  // L1: 6 cells, 2 pieces
+  genLevel([{color:'blue',name:'Z折线',row:1,col:4,rotation:0},{color:'yellow',name:'双格',row:2,col:2,rotation:0}]),
+  // L2: 7 cells, 2 pieces
+  genLevel([{color:'blue',name:'三连横',row:1,col:1,rotation:3},{color:'yellow',name:'L拐角',row:0,col:2,rotation:0}]),
+  // L3: 9 cells, 2 pieces
+  genLevel([{color:'green',name:'田字',row:1,col:2,rotation:1},{color:'green',name:'L长柄',row:0,col:1,rotation:0}]),
+  // L4: 8 cells, 3 pieces
+  genLevel([{color:'red',name:'V大拐',row:0,col:4,rotation:0},{color:'yellow',name:'双格',row:0,col:0,rotation:3},{color:'red',name:'单格',row:1,col:3,rotation:1}]),
+  // L5: 7 cells, 3 pieces
+  genLevel([{color:'blue',name:'T字',row:0,col:2,rotation:1},{color:'yellow',name:'双格',row:1,col:0,rotation:3},{color:'red',name:'单格',row:2,col:4,rotation:0}]),
+  // L6: 8 cells, 3 pieces
+  genLevel([{color:'blue',name:'T长柄',row:1,col:4,rotation:1},{color:'red',name:'单格',row:0,col:0,rotation:0},{color:'yellow',name:'双格',row:0,col:5,rotation:2}]),
+  // L7: 9 cells, 4 pieces
+  genLevel([{color:'blue',name:'三连横',row:1,col:3,rotation:2},{color:'green',name:'L三连',row:1,col:6,rotation:0},{color:'yellow',name:'双格',row:2,col:3,rotation:2},{color:'red',name:'单格',row:0,col:0,rotation:3}]),
+  // L8: 11 cells, 3 pieces
+  genLevel([{color:'red',name:'单格',row:0,col:1,rotation:0},{color:'red',name:'V大拐',row:0,col:0,rotation:3},{color:'red',name:'U凹槽',row:0,col:4,rotation:1}]),
+  // L9: 11 cells, 4 pieces
+  genLevel([{color:'green',name:'L三连',row:0,col:0,rotation:0},{color:'red',name:'U凹槽',row:1,col:2,rotation:1},{color:'yellow',name:'双格',row:1,col:6,rotation:0},{color:'red',name:'单格',row:2,col:1,rotation:3}]),
+  // L10: 11 cells, 4 pieces
+  genLevel([{color:'green',name:'L三连',row:0,col:0,rotation:0},{color:'green',name:'田字',row:0,col:6,rotation:1},{color:'red',name:'单格',row:0,col:1,rotation:2},{color:'blue',name:'三连横',row:0,col:2,rotation:1}]),
+  // L11: 13 cells, 4 pieces
+  genLevel([{color:'red',name:'I一字',row:1,col:4,rotation:1},{color:'green',name:'L长柄',row:4,col:0,rotation:2},{color:'blue',name:'三连横',row:0,col:1,rotation:0},{color:'red',name:'单格',row:0,col:0,rotation:3}]),
+  // L12: 13 cells, 4 pieces
+  genLevel([{color:'yellow',name:'L拐角',row:1,col:1,rotation:0},{color:'yellow',name:'W阶梯',row:1,col:4,rotation:1},{color:'blue',name:'三连横',row:1,col:7,rotation:3},{color:'red',name:'单格',row:3,col:3,rotation:3}]),
+  // L13: 15 cells, 4 pieces
+  genLevel([{color:'yellow',name:'双格',row:1,col:1,rotation:0},{color:'yellow',name:'X十字',row:1,col:2,rotation:3},{color:'yellow',name:'W阶梯',row:2,col:5,rotation:2},{color:'green',name:'L三连',row:0,col:5,rotation:2}]),
+  // L14: 16 cells, 4 pieces
+  genLevel([{color:'yellow',name:'X十字',row:1,col:0,rotation:0},{color:'blue',name:'三连横',row:0,col:3,rotation:1},{color:'yellow',name:'L拐角',row:2,col:4,rotation:0},{color:'red',name:'I一字',row:0,col:4,rotation:2}]),
+  // L15: 18 cells, 4 pieces
+  genLevel([{color:'red',name:'I一字',row:1,col:6,rotation:3},{color:'green',name:'L长柄',row:0,col:2,rotation:2},{color:'blue',name:'Z折线',row:2,col:3,rotation:3},{color:'yellow',name:'X十字',row:4,col:4,rotation:2}]),
+  // L16: 14 cells, 4 pieces
+  genLevel([{color:'red',name:'U凹槽',row:0,col:1,rotation:3},{color:'yellow',name:'双格',row:0,col:3,rotation:2},{color:'yellow',name:'L拐角',row:1,col:4,rotation:0},{color:'green',name:'L三连',row:2,col:0,rotation:0}]),
+  // L17: 14 cells, 5 pieces
+  genLevel([{color:'yellow',name:'双格',row:0,col:1,rotation:0},{color:'blue',name:'三连横',row:0,col:3,rotation:3},{color:'blue',name:'T长柄',row:2,col:4,rotation:3},{color:'green',name:'L三连',row:0,col:4,rotation:2},{color:'red',name:'单格',row:2,col:6,rotation:1}]),
+  // L18: 16 cells, 5 pieces
+  genLevel([{color:'yellow',name:'L拐角',row:1,col:1,rotation:1},{color:'green',name:'L长柄',row:3,col:3,rotation:0},{color:'blue',name:'T字',row:0,col:3,rotation:0},{color:'yellow',name:'双格',row:1,col:5,rotation:2},{color:'red',name:'单格',row:4,col:5,rotation:2}]),
+  // L19: 17 cells, 5 pieces
+  genLevel([{color:'green',name:'L长柄',row:1,col:5,rotation:1},{color:'blue',name:'Z折线',row:2,col:4,rotation:3},{color:'red',name:'单格',row:0,col:5,rotation:0},{color:'yellow',name:'X十字',row:0,col:2,rotation:3},{color:'yellow',name:'双格',row:5,col:5,rotation:2}]),
+  // L20: 17 cells, 5 pieces
+  genLevel([{color:'red',name:'单格',row:0,col:2,rotation:0},{color:'blue',name:'T长柄',row:1,col:1,rotation:0},{color:'green',name:'L长柄',row:4,col:2,rotation:3},{color:'green',name:'田字',row:0,col:4,rotation:3},{color:'yellow',name:'双格',row:5,col:1,rotation:1}]),
+  // L21: 19 cells, 6 pieces
+  genLevel([{color:'green',name:'L三连',row:0,col:0,rotation:2},{color:'red',name:'V大拐',row:1,col:2,rotation:2},{color:'blue',name:'T字',row:0,col:5,rotation:1},{color:'blue',name:'Z折线',row:2,col:2,rotation:3},{color:'red',name:'单格',row:2,col:2,rotation:2},{color:'yellow',name:'双格',row:2,col:5,rotation:3}]),
+  // L22: 19 cells, 5 pieces
+  genLevel([{color:'blue',name:'Z折线',row:1,col:4,rotation:3},{color:'green',name:'L长柄',row:3,col:3,rotation:2},{color:'green',name:'田字',row:5,col:4,rotation:0},{color:'red',name:'U凹槽',row:0,col:2,rotation:3},{color:'red',name:'单格',row:4,col:7,rotation:2}]),
+  // L23: 20 cells, 6 pieces
+  genLevel([{color:'red',name:'单格',row:0,col:4,rotation:3},{color:'blue',name:'Z折线',row:1,col:3,rotation:2},{color:'green',name:'L三连',row:0,col:5,rotation:2},{color:'red',name:'U凹槽',row:1,col:1,rotation:3},{color:'blue',name:'T长柄',row:2,col:2,rotation:2},{color:'yellow',name:'双格',row:5,col:4,rotation:2}]),
+  // L24: 21 cells, 6 pieces
+  genLevel([{color:'red',name:'U凹槽',row:1,col:5,rotation:3},{color:'green',name:'F异形',row:3,col:2,rotation:0},{color:'green',name:'田字',row:0,col:3,rotation:3},{color:'blue',name:'三连横',row:5,col:4,rotation:0},{color:'green',name:'L三连',row:0,col:6,rotation:2},{color:'red',name:'单格',row:2,col:7,rotation:2}]),
+  // L25: 22 cells, 6 pieces
+  genLevel([{color:'yellow',name:'W阶梯',row:2,col:1,rotation:2},{color:'red',name:'单格',row:5,col:3,rotation:3},{color:'red',name:'V大拐',row:2,col:0,rotation:0},{color:'red',name:'I一字',row:2,col:3,rotation:0},{color:'green',name:'L长柄',row:0,col:6,rotation:1},{color:'yellow',name:'双格',row:3,col:5,rotation:2}]),
+  // L26: 18 cells, 5 pieces
+  genLevel([{color:'yellow',name:'双格',row:1,col:6,rotation:0},{color:'red',name:'I一字',row:2,col:3,rotation:2},{color:'green',name:'L长柄',row:0,col:2,rotation:3},{color:'blue',name:'Z折线',row:2,col:6,rotation:3},{color:'blue',name:'三连横',row:0,col:1,rotation:1}]),
+  // L27: 20 cells, 5 pieces
+  genLevel([{color:'red',name:'U凹槽',row:0,col:4,rotation:1},{color:'yellow',name:'双格',row:1,col:5,rotation:2},{color:'red',name:'V大拐',row:0,col:1,rotation:0},{color:'yellow',name:'L拐角',row:3,col:0,rotation:0},{color:'red',name:'I一字',row:0,col:7,rotation:1}]),
+  // L28: 20 cells, 6 pieces
+  genLevel([{color:'yellow',name:'X十字',row:0,col:4,rotation:0},{color:'yellow',name:'双格',row:0,col:3,rotation:0},{color:'yellow',name:'L拐角',row:1,col:1,rotation:0},{color:'blue',name:'T字',row:2,col:3,rotation:2},{color:'red',name:'单格',row:1,col:7,rotation:3},{color:'blue',name:'Z折线',row:2,col:0,rotation:0}]),
+  // L29: 21 cells, 5 pieces
+  genLevel([{color:'yellow',name:'X十字',row:1,col:1,rotation:0},{color:'red',name:'V大拐',row:4,col:0,rotation:1},{color:'red',name:'U凹槽',row:4,col:3,rotation:0},{color:'yellow',name:'W阶梯',row:0,col:3,rotation:0},{color:'red',name:'单格',row:4,col:6,rotation:0}]),
+  // L30: 22 cells, 6 pieces
+  genLevel([{color:'green',name:'L三连',row:1,col:2,rotation:2},{color:'red',name:'U凹槽',row:3,col:3,rotation:0},{color:'red',name:'单格',row:4,col:2,rotation:2},{color:'yellow',name:'X十字',row:0,col:4,rotation:0},{color:'blue',name:'Z折线',row:0,col:0,rotation:1},{color:'yellow',name:'L拐角',row:2,col:0,rotation:1}]),
+  // L31: 22 cells, 6 pieces
+  genLevel([{color:'yellow',name:'W阶梯',row:0,col:5,rotation:3},{color:'red',name:'I一字',row:0,col:4,rotation:3},{color:'green',name:'F异形',row:0,col:1,rotation:3},{color:'red',name:'U凹槽',row:4,col:3,rotation:1},{color:'yellow',name:'双格',row:5,col:5,rotation:1},{color:'red',name:'单格',row:3,col:3,rotation:1}]),
+  // L32: 23 cells, 5 pieces
+  genLevel([{color:'red',name:'U凹槽',row:0,col:1,rotation:0},{color:'red',name:'V大拐',row:0,col:4,rotation:0},{color:'yellow',name:'W阶梯',row:2,col:1,rotation:0},{color:'green',name:'L三连',row:1,col:6,rotation:2},{color:'yellow',name:'X十字',row:4,col:0,rotation:2}]),
+  // L33: 23 cells, 5 pieces
+  genLevel([{color:'blue',name:'T长柄',row:0,col:2,rotation:0},{color:'blue',name:'三连横',row:3,col:1,rotation:2},{color:'green',name:'L长柄',row:1,col:0,rotation:3},{color:'yellow',name:'X十字',row:0,col:4,rotation:1},{color:'yellow',name:'W阶梯',row:3,col:3,rotation:3}]),
+  // L34: 24 cells, 6 pieces
+  genLevel([{color:'yellow',name:'W阶梯',row:1,col:0,rotation:0},{color:'red',name:'I一字',row:3,col:3,rotation:3},{color:'blue',name:'三连横',row:0,col:2,rotation:3},{color:'green',name:'田字',row:6,col:1,rotation:3},{color:'yellow',name:'L拐角',row:4,col:0,rotation:0},{color:'blue',name:'Z折线',row:3,col:4,rotation:0}]),
+  // L35: 25 cells, 7 pieces
+  genLevel([{color:'green',name:'L三连',row:0,col:3,rotation:0},{color:'green',name:'F异形',row:0,col:5,rotation:0},{color:'yellow',name:'W阶梯',row:3,col:5,rotation:2},{color:'red',name:'单格',row:6,col:7,rotation:3},{color:'blue',name:'T字',row:1,col:1,rotation:1},{color:'red',name:'V大拐',row:5,col:5,rotation:0},{color:'yellow',name:'双格',row:0,col:1,rotation:3}]),
+  // L36: 22 cells, 6 pieces
+  genLevel([{color:'red',name:'I一字',row:1,col:3,rotation:2},{color:'blue',name:'T长柄',row:2,col:4,rotation:3},{color:'green',name:'田字',row:2,col:2,rotation:1},{color:'green',name:'L长柄',row:5,col:3,rotation:0},{color:'green',name:'L三连',row:3,col:1,rotation:0},{color:'red',name:'单格',row:1,col:2,rotation:0}]),
+  // L37: 23 cells, 6 pieces
+  genLevel([{color:'green',name:'L长柄',row:2,col:2,rotation:0},{color:'green',name:'F异形',row:3,col:0,rotation:2},{color:'blue',name:'T长柄',row:3,col:3,rotation:3},{color:'red',name:'I一字',row:1,col:6,rotation:1},{color:'blue',name:'三连横',row:1,col:0,rotation:1},{color:'red',name:'单格',row:0,col:0,rotation:3}]),
+  // L38: 23 cells, 6 pieces
+  genLevel([{color:'yellow',name:'X十字',row:2,col:2,rotation:0},{color:'blue',name:'T长柄',row:0,col:4,rotation:2},{color:'blue',name:'T字',row:4,col:4,rotation:0},{color:'red',name:'I一字',row:3,col:1,rotation:3},{color:'blue',name:'Z折线',row:0,col:1,rotation:3},{color:'red',name:'单格',row:1,col:6,rotation:0}]),
+  // L39: 25 cells, 6 pieces
+  genLevel([{color:'yellow',name:'W阶梯',row:0,col:0,rotation:1},{color:'red',name:'V大拐',row:1,col:2,rotation:0},{color:'green',name:'L长柄',row:0,col:5,rotation:3},{color:'yellow',name:'L拐角',row:4,col:0,rotation:0},{color:'blue',name:'三连横',row:5,col:3,rotation:0},{color:'green',name:'L三连',row:0,col:3,rotation:1}]),
+  // L40: 26 cells, 7 pieces
+  genLevel([{color:'green',name:'田字',row:0,col:6,rotation:0},{color:'green',name:'F异形',row:1,col:4,rotation:2},{color:'yellow',name:'X十字',row:0,col:2,rotation:1},{color:'yellow',name:'L拐角',row:1,col:0,rotation:3},{color:'red',name:'V大拐',row:3,col:1,rotation:1},{color:'yellow',name:'双格',row:6,col:1,rotation:2},{color:'red',name:'单格',row:0,col:0,rotation:1}]),
+  // L41: 26 cells, 7 pieces
+  genLevel([{color:'yellow',name:'W阶梯',row:0,col:3,rotation:0},{color:'blue',name:'T字',row:1,col:1,rotation:2},{color:'green',name:'L长柄',row:2,col:6,rotation:1},{color:'yellow',name:'X十字',row:5,col:5,rotation:3},{color:'green',name:'L三连',row:0,col:6,rotation:0},{color:'blue',name:'三连横',row:3,col:1,rotation:2},{color:'red',name:'单格',row:0,col:5,rotation:3}]),
+  // L42: 26 cells, 6 pieces
+  genLevel([{color:'blue',name:'T字',row:0,col:0,rotation:0},{color:'yellow',name:'X十字',row:0,col:2,rotation:3},{color:'green',name:'田字',row:1,col:5,rotation:1},{color:'red',name:'U凹槽',row:3,col:3,rotation:1},{color:'red',name:'V大拐',row:1,col:5,rotation:3},{color:'green',name:'L三连',row:4,col:5,rotation:3}]),
+  // L43: 27 cells, 7 pieces
+  genLevel([{color:'green',name:'F异形',row:1,col:0,rotation:2},{color:'yellow',name:'X十字',row:0,col:2,rotation:2},{color:'yellow',name:'W阶梯',row:3,col:2,rotation:0},{color:'red',name:'V大拐',row:0,col:5,rotation:1},{color:'red',name:'单格',row:1,col:0,rotation:2},{color:'green',name:'L三连',row:3,col:3,rotation:2},{color:'blue',name:'三连横',row:6,col:1,rotation:0}]),
+  // L44: 27 cells, 8 pieces
+  genLevel([{color:'blue',name:'三连横',row:0,col:1,rotation:2},{color:'green',name:'L长柄',row:1,col:1,rotation:1},{color:'green',name:'田字',row:3,col:0,rotation:3},{color:'blue',name:'T长柄',row:5,col:0,rotation:3},{color:'yellow',name:'L拐角',row:5,col:2,rotation:0},{color:'yellow',name:'双格',row:0,col:4,rotation:0},{color:'green',name:'L三连',row:0,col:6,rotation:0},{color:'red',name:'单格',row:2,col:3,rotation:1}]),
+  // L45: 28 cells, 7 pieces
+  genLevel([{color:'yellow',name:'双格',row:0,col:1,rotation:0},{color:'yellow',name:'W阶梯',row:1,col:0,rotation:3},{color:'yellow',name:'L拐角',row:0,col:3,rotation:1},{color:'green',name:'田字',row:4,col:1,rotation:1},{color:'blue',name:'Z折线',row:3,col:2,rotation:0},{color:'red',name:'V大拐',row:1,col:4,rotation:3},{color:'blue',name:'T字',row:5,col:3,rotation:0}]),
+  // L46: 29 cells, 8 pieces
+  genLevel([{color:'blue',name:'Z折线',row:1,col:3,rotation:0},{color:'red',name:'单格',row:0,col:3,rotation:1},{color:'red',name:'U凹槽',row:1,col:5,rotation:3},{color:'blue',name:'T字',row:3,col:6,rotation:1},{color:'red',name:'V大拐',row:0,col:0,rotation:3},{color:'yellow',name:'L拐角',row:4,col:3,rotation:0},{color:'green',name:'田字',row:0,col:0,rotation:3},{color:'yellow',name:'双格',row:1,col:7,rotation:3}]),
+  // L47: 29 cells, 7 pieces
+  genLevel([{color:'yellow',name:'W阶梯',row:2,col:0,rotation:2},{color:'yellow',name:'X十字',row:2,col:3,rotation:3},{color:'red',name:'V大拐',row:4,col:5,rotation:0},{color:'red',name:'U凹槽',row:0,col:3,rotation:0},{color:'blue',name:'T字',row:5,col:3,rotation:1},{color:'yellow',name:'双格',row:0,col:6,rotation:3},{color:'blue',name:'三连横',row:4,col:1,rotation:3}]),
+  // L48: 29 cells, 8 pieces
+  genLevel([{color:'red',name:'V大拐',row:0,col:5,rotation:2},{color:'red',name:'I一字',row:1,col:3,rotation:2},{color:'red',name:'单格',row:2,col:6,rotation:0},{color:'yellow',name:'X十字',row:3,col:5,rotation:1},{color:'red',name:'U凹槽',row:2,col:1,rotation:2},{color:'green',name:'田字',row:0,col:0,rotation:3},{color:'green',name:'L三连',row:3,col:0,rotation:0},{color:'yellow',name:'双格',row:2,col:4,rotation:1}]),
+  // L49: 30 cells, 7 pieces
+  genLevel([{color:'yellow',name:'L拐角',row:1,col:0,rotation:0},{color:'blue',name:'T长柄',row:0,col:2,rotation:0},{color:'blue',name:'Z折线',row:2,col:3,rotation:1},{color:'yellow',name:'W阶梯',row:5,col:2,rotation:1},{color:'red',name:'V大拐',row:0,col:5,rotation:2},{color:'blue',name:'T字',row:2,col:5,rotation:1},{color:'green',name:'L三连',row:6,col:4,rotation:2}]),
+  // L50: 31 cells, 7 pieces
+  genLevel([{color:'green',name:'L三连',row:0,col:0,rotation:2},{color:'blue',name:'T长柄',row:2,col:1,rotation:0},{color:'green',name:'田字',row:0,col:3,rotation:3},{color:'yellow',name:'W阶梯',row:3,col:0,rotation:0},{color:'yellow',name:'L拐角',row:3,col:3,rotation:0},{color:'red',name:'V大拐',row:5,col:3,rotation:2},{color:'red',name:'U凹槽',row:4,col:6,rotation:1}]),
+  // L51: 26 cells, 7 pieces
+  genLevel([{color:'red',name:'单格',row:0,col:0,rotation:1},{color:'green',name:'L长柄',row:1,col:0,rotation:0},{color:'green',name:'田字',row:0,col:4,rotation:2},{color:'red',name:'U凹槽',row:0,col:6,rotation:3},{color:'yellow',name:'L拐角',row:2,col:3,rotation:0},{color:'yellow',name:'X十字',row:2,col:0,rotation:2},{color:'yellow',name:'双格',row:4,col:5,rotation:3}]),
+  // L52: 27 cells, 8 pieces
+  genLevel([{color:'yellow',name:'L拐角',row:2,col:0,rotation:0},{color:'red',name:'U凹槽',row:0,col:0,rotation:2},{color:'green',name:'L三连',row:1,col:3,rotation:1},{color:'green',name:'L长柄',row:3,col:3,rotation:1},{color:'blue',name:'三连横',row:0,col:3,rotation:0},{color:'blue',name:'T字',row:1,col:4,rotation:2},{color:'red',name:'单格',row:3,col:5,rotation:0},{color:'yellow',name:'双格',row:1,col:7,rotation:3}]),
+  // L53: 28 cells, 8 pieces
+  genLevel([{color:'blue',name:'三连横',row:1,col:2,rotation:3},{color:'red',name:'单格',row:1,col:1,rotation:0},{color:'red',name:'U凹槽',row:2,col:3,rotation:2},{color:'green',name:'田字',row:0,col:4,rotation:3},{color:'yellow',name:'双格',row:3,col:4,rotation:3},{color:'yellow',name:'X十字',row:4,col:1,rotation:2},{color:'blue',name:'T长柄',row:4,col:4,rotation:1},{color:'green',name:'L三连',row:0,col:6,rotation:3}]),
+  // L54: 29 cells, 8 pieces
+  genLevel([{color:'blue',name:'T字',row:1,col:4,rotation:0},{color:'blue',name:'T长柄',row:0,col:2,rotation:0},{color:'yellow',name:'L拐角',row:3,col:1,rotation:0},{color:'green',name:'田字',row:0,col:0,rotation:1},{color:'blue',name:'三连横',row:3,col:0,rotation:3},{color:'yellow',name:'双格',row:2,col:0,rotation:0},{color:'red',name:'I一字',row:3,col:5,rotation:1},{color:'green',name:'L三连',row:5,col:2,rotation:3}]),
+  // L55: 30 cells, 7 pieces
+  genLevel([{color:'green',name:'田字',row:0,col:3,rotation:3},{color:'green',name:'F异形',row:1,col:1,rotation:1},{color:'yellow',name:'W阶梯',row:3,col:1,rotation:0},{color:'yellow',name:'X十字',row:1,col:4,rotation:0},{color:'yellow',name:'L拐角',row:6,col:3,rotation:2},{color:'green',name:'L三连',row:6,col:6,rotation:3},{color:'blue',name:'T字',row:5,col:4,rotation:2}]),
+  // L56: 30 cells, 8 pieces
+  genLevel([{color:'yellow',name:'W阶梯',row:1,col:4,rotation:0},{color:'yellow',name:'双格',row:3,col:3,rotation:0},{color:'red',name:'V大拐',row:0,col:1,rotation:2},{color:'green',name:'田字',row:0,col:5,rotation:3},{color:'red',name:'U凹槽',row:2,col:0,rotation:0},{color:'green',name:'L三连',row:4,col:3,rotation:2},{color:'yellow',name:'X十字',row:5,col:2,rotation:2},{color:'red',name:'单格',row:1,col:0,rotation:3}]),
+  // L57: 31 cells, 8 pieces
+  genLevel([{color:'yellow',name:'L拐角',row:1,col:4,rotation:1},{color:'yellow',name:'W阶梯',row:0,col:2,rotation:3},{color:'red',name:'U凹槽',row:4,col:2,rotation:2},{color:'green',name:'L长柄',row:1,col:6,rotation:1},{color:'green',name:'F异形',row:4,col:5,rotation:2},{color:'blue',name:'Z折线',row:2,col:0,rotation:2},{color:'yellow',name:'双格',row:7,col:4,rotation:2},{color:'red',name:'单格',row:4,col:1,rotation:3}]),
+  // L58: 30 cells, 7 pieces
+  genLevel([{color:'red',name:'U凹槽',row:1,col:3,rotation:2},{color:'red',name:'V大拐',row:0,col:1,rotation:1},{color:'yellow',name:'X十字',row:3,col:4,rotation:1},{color:'green',name:'田字',row:3,col:0,rotation:1},{color:'blue',name:'三连横',row:0,col:4,rotation:2},{color:'red',name:'I一字',row:6,col:2,rotation:0},{color:'yellow',name:'L拐角',row:5,col:0,rotation:1}]),
+  // L59: 32 cells, 8 pieces
+  genLevel([{color:'red',name:'I一字',row:0,col:3,rotation:0},{color:'green',name:'L三连',row:1,col:5,rotation:0},{color:'green',name:'L长柄',row:1,col:6,rotation:1},{color:'blue',name:'三连横',row:1,col:3,rotation:3},{color:'red',name:'U凹槽',row:0,col:0,rotation:0},{color:'red',name:'V大拐',row:3,col:2,rotation:0},{color:'yellow',name:'X十字',row:4,col:5,rotation:2},{color:'yellow',name:'双格',row:6,col:4,rotation:2}]),
+  // L60: 33 cells, 8 pieces
+  genLevel([{color:'green',name:'F异形',row:0,col:4,rotation:1},{color:'blue',name:'T长柄',row:2,col:5,rotation:3},{color:'blue',name:'T字',row:4,col:5,rotation:1},{color:'yellow',name:'X十字',row:2,col:2,rotation:2},{color:'yellow',name:'W阶梯',row:0,col:0,rotation:2},{color:'blue',name:'Z折线',row:3,col:0,rotation:0},{color:'red',name:'I一字',row:4,col:4,rotation:3},{color:'red',name:'单格',row:0,col:4,rotation:3}]),
+  // L61: 32 cells, 8 pieces
+  genLevel([{color:'yellow',name:'双格',row:0,col:2,rotation:3},{color:'red',name:'I一字',row:0,col:1,rotation:1},{color:'green',name:'L长柄',row:0,col:3,rotation:0},{color:'green',name:'田字',row:2,col:2,rotation:0},{color:'blue',name:'T字',row:3,col:4,rotation:0},{color:'red',name:'U凹槽',row:4,col:3,rotation:1},{color:'red',name:'V大拐',row:0,col:5,rotation:3},{color:'green',name:'L三连',row:4,col:1,rotation:1}]),
+  // L62: 33 cells, 8 pieces
+  genLevel([{color:'yellow',name:'双格',row:2,col:0,rotation:2},{color:'green',name:'L长柄',row:1,col:2,rotation:0},{color:'blue',name:'T字',row:3,col:1,rotation:1},{color:'green',name:'F异形',row:3,col:3,rotation:3},{color:'green',name:'田字',row:2,col:4,rotation:0},{color:'yellow',name:'X十字',row:4,col:5,rotation:2},{color:'red',name:'I一字',row:4,col:0,rotation:1},{color:'yellow',name:'L拐角',row:6,col:3,rotation:0}]),
+  // L63: 34 cells, 9 pieces
+  genLevel([{color:'blue',name:'T字',row:0,col:0,rotation:1},{color:'red',name:'I一字',row:1,col:2,rotation:3},{color:'blue',name:'三连横',row:0,col:3,rotation:1},{color:'yellow',name:'W阶梯',row:4,col:3,rotation:2},{color:'green',name:'L三连',row:0,col:4,rotation:3},{color:'yellow',name:'L拐角',row:4,col:0,rotation:2},{color:'yellow',name:'X十字',row:5,col:2,rotation:0},{color:'red',name:'单格',row:3,col:3,rotation:3},{color:'red',name:'V大拐',row:0,col:5,rotation:3}]),
+  // L64: 34 cells, 9 pieces
+  genLevel([{color:'blue',name:'三连横',row:0,col:7,rotation:3},{color:'green',name:'F异形',row:2,col:4,rotation:0},{color:'blue',name:'T长柄',row:1,col:1,rotation:2},{color:'green',name:'L长柄',row:4,col:1,rotation:3},{color:'green',name:'L三连',row:0,col:0,rotation:0},{color:'blue',name:'Z折线',row:4,col:2,rotation:1},{color:'red',name:'I一字',row:2,col:0,rotation:1},{color:'blue',name:'T字',row:0,col:3,rotation:3},{color:'red',name:'单格',row:0,col:1,rotation:2}]),
+  // L65: 36 cells, 9 pieces
+  genLevel([{color:'blue',name:'T字',row:1,col:5,rotation:0},{color:'yellow',name:'W阶梯',row:0,col:2,rotation:3},{color:'red',name:'V大拐',row:2,col:4,rotation:0},{color:'green',name:'F异形',row:0,col:0,rotation:0},{color:'red',name:'U凹槽',row:3,col:0,rotation:1},{color:'yellow',name:'X十字',row:3,col:1,rotation:2},{color:'yellow',name:'双格',row:6,col:2,rotation:3},{color:'red',name:'单格',row:2,col:0,rotation:3},{color:'blue',name:'Z折线',row:5,col:4,rotation:2}]),
+  // L66: 31 cells, 8 pieces
+  genLevel([{color:'yellow',name:'X十字',row:1,col:4,rotation:1},{color:'green',name:'L三连',row:4,col:4,rotation:2},{color:'yellow',name:'W阶梯',row:0,col:3,rotation:1},{color:'green',name:'F异形',row:4,col:2,rotation:2},{color:'yellow',name:'L拐角',row:1,col:0,rotation:0},{color:'red',name:'V大拐',row:2,col:0,rotation:0},{color:'blue',name:'三连横',row:6,col:4,rotation:2},{color:'red',name:'单格',row:3,col:2,rotation:0}]),
+  // L67: 32 cells, 8 pieces
+  genLevel([{color:'blue',name:'三连横',row:0,col:5,rotation:0},{color:'red',name:'V大拐',row:1,col:4,rotation:1},{color:'green',name:'田字',row:2,col:5,rotation:3},{color:'yellow',name:'X十字',row:4,col:4,rotation:1},{color:'blue',name:'T字',row:0,col:2,rotation:1},{color:'yellow',name:'双格',row:4,col:3,rotation:3},{color:'yellow',name:'L拐角',row:6,col:4,rotation:2},{color:'green',name:'L长柄',row:0,col:0,rotation:1}]),
+  // L68: 32 cells, 9 pieces
+  genLevel([{color:'red',name:'V大拐',row:1,col:4,rotation:0},{color:'yellow',name:'W阶梯',row:4,col:2,rotation:1},{color:'blue',name:'三连横',row:0,col:5,rotation:3},{color:'yellow',name:'L拐角',row:2,col:1,rotation:0},{color:'yellow',name:'X十字',row:5,col:3,rotation:0},{color:'blue',name:'Z折线',row:4,col:5,rotation:0},{color:'green',name:'L三连',row:6,col:1,rotation:0},{color:'red',name:'单格',row:2,col:6,rotation:0},{color:'yellow',name:'双格',row:1,col:0,rotation:3}]),
+  // L69: 33 cells, 8 pieces
+  genLevel([{color:'yellow',name:'X十字',row:2,col:2,rotation:1},{color:'red',name:'单格',row:3,col:1,rotation:1},{color:'yellow',name:'W阶梯',row:1,col:3,rotation:2},{color:'red',name:'V大拐',row:0,col:1,rotation:1},{color:'green',name:'F异形',row:5,col:2,rotation:2},{color:'red',name:'I一字',row:2,col:6,rotation:3},{color:'green',name:'L长柄',row:2,col:0,rotation:3},{color:'green',name:'L三连',row:0,col:5,rotation:2}]),
+  // L70: 34 cells, 9 pieces
+  genLevel([{color:'yellow',name:'L拐角',row:1,col:0,rotation:3},{color:'green',name:'L三连',row:4,col:0,rotation:0},{color:'yellow',name:'W阶梯',row:1,col:1,rotation:3},{color:'yellow',name:'X十字',row:1,col:4,rotation:0},{color:'green',name:'F异形',row:4,col:2,rotation:3},{color:'green',name:'田字',row:0,col:6,rotation:1},{color:'red',name:'U凹槽',row:4,col:5,rotation:3},{color:'yellow',name:'双格',row:0,col:3,rotation:0},{color:'red',name:'单格',row:0,col:2,rotation:2}]),
+  // L71: 35 cells, 9 pieces
+  genLevel([{color:'green',name:'L三连',row:1,col:2,rotation:3},{color:'green',name:'田字',row:3,col:3,rotation:3},{color:'red',name:'I一字',row:0,col:0,rotation:0},{color:'green',name:'L长柄',row:5,col:0,rotation:2},{color:'yellow',name:'L拐角',row:5,col:5,rotation:2},{color:'red',name:'U凹槽',row:0,col:4,rotation:2},{color:'red',name:'V大拐',row:5,col:4,rotation:0},{color:'blue',name:'Z折线',row:2,col:0,rotation:0},{color:'red',name:'单格',row:3,col:5,rotation:1}]),
+  // L72: 34 cells, 9 pieces
+  genLevel([{color:'yellow',name:'W阶梯',row:2,col:2,rotation:3},{color:'green',name:'L三连',row:5,col:3,rotation:0},{color:'yellow',name:'X十字',row:0,col:2,rotation:3},{color:'red',name:'单格',row:2,col:2,rotation:3},{color:'green',name:'F异形',row:1,col:5,rotation:1},{color:'green',name:'田字',row:5,col:1,rotation:1},{color:'red',name:'V大拐',row:4,col:5,rotation:1},{color:'blue',name:'T字',row:3,col:0,rotation:3},{color:'yellow',name:'双格',row:7,col:1,rotation:0}]),
+  // L73: 35 cells, 9 pieces
+  genLevel([{color:'red',name:'I一字',row:0,col:0,rotation:3},{color:'yellow',name:'双格',row:3,col:1,rotation:1},{color:'blue',name:'三连横',row:5,col:0,rotation:2},{color:'blue',name:'T字',row:0,col:1,rotation:2},{color:'blue',name:'Z折线',row:1,col:4,rotation:0},{color:'blue',name:'T长柄',row:2,col:4,rotation:3},{color:'green',name:'F异形',row:4,col:5,rotation:2},{color:'green',name:'L三连',row:0,col:6,rotation:3},{color:'red',name:'U凹槽',row:6,col:2,rotation:2}]),
+  // L74: 35 cells, 9 pieces
+  genLevel([{color:'blue',name:'T长柄',row:0,col:0,rotation:0},{color:'red',name:'单格',row:2,col:0,rotation:3},{color:'yellow',name:'双格',row:1,col:2,rotation:0},{color:'red',name:'I一字',row:1,col:4,rotation:2},{color:'red',name:'U凹槽',row:3,col:1,rotation:2},{color:'green',name:'F异形',row:5,col:0,rotation:2},{color:'yellow',name:'W阶梯',row:2,col:5,rotation:2},{color:'yellow',name:'X十字',row:5,col:3,rotation:0},{color:'blue',name:'三连横',row:7,col:5,rotation:2}]),
+  // L75: 36 cells, 9 pieces
+  genLevel([{color:'yellow',name:'双格',row:1,col:5,rotation:0},{color:'blue',name:'三连横',row:0,col:5,rotation:2},{color:'yellow',name:'W阶梯',row:2,col:5,rotation:1},{color:'yellow',name:'X十字',row:4,col:5,rotation:3},{color:'red',name:'I一字',row:1,col:4,rotation:1},{color:'yellow',name:'L拐角',row:6,col:4,rotation:2},{color:'green',name:'L长柄',row:2,col:0,rotation:0},{color:'green',name:'田字',row:0,col:2,rotation:2},{color:'blue',name:'Z折线',row:3,col:1,rotation:0}]),
+  // L76: 36 cells, 9 pieces
+  genLevel([{color:'yellow',name:'L拐角',row:0,col:1,rotation:0},{color:'red',name:'I一字',row:2,col:0,rotation:2},{color:'yellow',name:'X十字',row:0,col:4,rotation:1},{color:'green',name:'L三连',row:2,col:4,rotation:0},{color:'yellow',name:'W阶梯',row:3,col:4,rotation:3},{color:'blue',name:'T长柄',row:3,col:0,rotation:2},{color:'yellow',name:'双格',row:2,col:6,rotation:0},{color:'blue',name:'三连横',row:6,col:3,rotation:0},{color:'green',name:'F异形',row:5,col:5,rotation:2}]),
+  // L77: 38 cells, 10 pieces
+  genLevel([{color:'green',name:'F异形',row:0,col:2,rotation:3},{color:'green',name:'L长柄',row:2,col:4,rotation:3},{color:'yellow',name:'L拐角',row:1,col:5,rotation:0},{color:'blue',name:'T字',row:1,col:0,rotation:1},{color:'blue',name:'T长柄',row:4,col:0,rotation:0},{color:'green',name:'田字',row:4,col:6,rotation:3},{color:'red',name:'U凹槽',row:6,col:3,rotation:0},{color:'blue',name:'三连横',row:3,col:3,rotation:3},{color:'yellow',name:'双格',row:6,col:0,rotation:3},{color:'red',name:'单格',row:1,col:0,rotation:0}]),
+  // L78: 38 cells, 10 pieces
+  genLevel([{color:'blue',name:'Z折线',row:0,col:5,rotation:1},{color:'yellow',name:'双格',row:3,col:4,rotation:2},{color:'red',name:'I一字',row:1,col:1,rotation:2},{color:'green',name:'L长柄',row:4,col:4,rotation:0},{color:'yellow',name:'X十字',row:5,col:4,rotation:1},{color:'red',name:'V大拐',row:0,col:0,rotation:1},{color:'green',name:'田字',row:2,col:1,rotation:2},{color:'green',name:'F异形',row:4,col:1,rotation:1},{color:'green',name:'L三连',row:1,col:6,rotation:3},{color:'red',name:'单格',row:3,col:0,rotation:3}]),
+  // L79: 39 cells, 10 pieces
+  genLevel([{color:'yellow',name:'W阶梯',row:1,col:0,rotation:1},{color:'blue',name:'三连横',row:2,col:2,rotation:1},{color:'yellow',name:'X十字',row:2,col:3,rotation:1},{color:'green',name:'田字',row:1,col:5,rotation:1},{color:'green',name:'F异形',row:5,col:1,rotation:0},{color:'red',name:'U凹槽',row:6,col:3,rotation:0},{color:'blue',name:'T字',row:4,col:5,rotation:0},{color:'blue',name:'T长柄',row:0,col:2,rotation:0},{color:'red',name:'单格',row:0,col:1,rotation:0},{color:'yellow',name:'双格',row:4,col:0,rotation:3}]),
+  // L80: 39 cells, 10 pieces
+  genLevel([{color:'yellow',name:'L拐角',row:1,col:4,rotation:0},{color:'blue',name:'三连横',row:0,col:2,rotation:0},{color:'red',name:'U凹槽',row:1,col:0,rotation:0},{color:'red',name:'单格',row:0,col:0,rotation:0},{color:'blue',name:'T字',row:1,col:3,rotation:3},{color:'red',name:'V大拐',row:2,col:5,rotation:0},{color:'green',name:'F异形',row:4,col:2,rotation:2},{color:'green',name:'L长柄',row:6,col:4,rotation:0},{color:'yellow',name:'W阶梯',row:5,col:0,rotation:0},{color:'yellow',name:'双格',row:0,col:1,rotation:3}]),
+  // L81: 35 cells, 9 pieces
+  genLevel([{color:'yellow',name:'双格',row:0,col:2,rotation:3},{color:'red',name:'U凹槽',row:1,col:3,rotation:1},{color:'green',name:'田字',row:3,col:5,rotation:3},{color:'red',name:'I一字',row:2,col:4,rotation:0},{color:'yellow',name:'W阶梯',row:4,col:2,rotation:1},{color:'blue',name:'Z折线',row:5,col:4,rotation:3},{color:'green',name:'L长柄',row:0,col:0,rotation:1},{color:'red',name:'V大拐',row:5,col:1,rotation:0},{color:'red',name:'单格',row:0,col:3,rotation:3}]),
+  // L82: 37 cells, 10 pieces
+  genLevel([{color:'red',name:'单格',row:0,col:4,rotation:0},{color:'red',name:'V大拐',row:1,col:3,rotation:2},{color:'green',name:'田字',row:4,col:5,rotation:0},{color:'blue',name:'三连横',row:6,col:3,rotation:0},{color:'yellow',name:'双格',row:0,col:2,rotation:2},{color:'green',name:'L长柄',row:0,col:0,rotation:1},{color:'blue',name:'T长柄',row:0,col:5,rotation:0},{color:'green',name:'F异形',row:1,col:2,rotation:3},{color:'red',name:'I一字',row:2,col:0,rotation:3},{color:'green',name:'L三连',row:6,col:1,rotation:1}]),
+  // L83: 36 cells, 9 pieces
+  genLevel([{color:'red',name:'V大拐',row:2,col:1,rotation:0},{color:'blue',name:'T字',row:5,col:0,rotation:2},{color:'blue',name:'三连横',row:0,col:0,rotation:3},{color:'blue',name:'Z折线',row:5,col:3,rotation:0},{color:'red',name:'U凹槽',row:3,col:5,rotation:3},{color:'green',name:'田字',row:2,col:3,rotation:1},{color:'yellow',name:'X十字',row:0,col:5,rotation:1},{color:'yellow',name:'L拐角',row:4,col:6,rotation:1},{color:'yellow',name:'双格',row:4,col:0,rotation:3}]),
+  // L84: 37 cells, 9 pieces
+  genLevel([{color:'yellow',name:'W阶梯',row:0,col:3,rotation:0},{color:'green',name:'L长柄',row:0,col:2,rotation:3},{color:'red',name:'V大拐',row:2,col:0,rotation:0},{color:'yellow',name:'X十字',row:3,col:4,rotation:1},{color:'green',name:'田字',row:1,col:6,rotation:0},{color:'red',name:'U凹槽',row:5,col:1,rotation:3},{color:'blue',name:'T长柄',row:5,col:3,rotation:3},{color:'yellow',name:'双格',row:0,col:1,rotation:1},{color:'red',name:'单格',row:0,col:0,rotation:3}]),
+  // L85: 38 cells, 10 pieces
+  genLevel([{color:'green',name:'L三连',row:0,col:5,rotation:3},{color:'red',name:'U凹槽',row:0,col:2,rotation:2},{color:'red',name:'V大拐',row:0,col:5,rotation:3},{color:'yellow',name:'W阶梯',row:1,col:3,rotation:0},{color:'yellow',name:'双格',row:3,col:6,rotation:2},{color:'blue',name:'T字',row:4,col:6,rotation:1},{color:'yellow',name:'L拐角',row:4,col:4,rotation:1},{color:'yellow',name:'X十字',row:2,col:1,rotation:0},{color:'red',name:'I一字',row:4,col:3,rotation:1},{color:'red',name:'单格',row:4,col:1,rotation:3}]),
+  // L86: 39 cells, 10 pieces
+  genLevel([{color:'yellow',name:'L拐角',row:1,col:4,rotation:0},{color:'blue',name:'T长柄',row:0,col:2,rotation:2},{color:'blue',name:'T字',row:3,col:2,rotation:1},{color:'green',name:'L三连',row:1,col:0,rotation:0},{color:'red',name:'U凹槽',row:3,col:4,rotation:2},{color:'green',name:'F异形',row:5,col:4,rotation:0},{color:'blue',name:'三连横',row:3,col:1,rotation:1},{color:'green',name:'田字',row:6,col:6,rotation:2},{color:'red',name:'I一字',row:4,col:0,rotation:3},{color:'yellow',name:'双格',row:0,col:0,rotation:0}]),
+  // L87: 39 cells, 10 pieces
+  genLevel([{color:'red',name:'单格',row:0,col:0,rotation:1},{color:'yellow',name:'双格',row:1,col:0,rotation:0},{color:'green',name:'F异形',row:1,col:1,rotation:0},{color:'blue',name:'T字',row:0,col:4,rotation:1},{color:'yellow',name:'W阶梯',row:3,col:3,rotation:0},{color:'yellow',name:'L拐角',row:3,col:6,rotation:3},{color:'blue',name:'Z折线',row:6,col:5,rotation:2},{color:'green',name:'田字',row:4,col:1,rotation:1},{color:'red',name:'V大拐',row:5,col:1,rotation:3},{color:'green',name:'L长柄',row:3,col:0,rotation:3}]),
+  // L88: 40 cells, 10 pieces
+  genLevel([{color:'yellow',name:'L拐角',row:0,col:5,rotation:1},{color:'red',name:'单格',row:0,col:5,rotation:2},{color:'blue',name:'T字',row:3,col:6,rotation:3},{color:'yellow',name:'X十字',row:4,col:3,rotation:0},{color:'red',name:'I一字',row:7,col:4,rotation:2},{color:'green',name:'L长柄',row:0,col:4,rotation:3},{color:'yellow',name:'W阶梯',row:2,col:1,rotation:1},{color:'blue',name:'T长柄',row:4,col:0,rotation:1},{color:'red',name:'V大拐',row:1,col:0,rotation:1},{color:'yellow',name:'双格',row:0,col:3,rotation:1}]),
+  // L89: 40 cells, 10 pieces
+  genLevel([{color:'blue',name:'Z折线',row:1,col:2,rotation:3},{color:'green',name:'F异形',row:3,col:0,rotation:2},{color:'green',name:'田字',row:0,col:1,rotation:2},{color:'red',name:'单格',row:0,col:0,rotation:0},{color:'blue',name:'T长柄',row:3,col:2,rotation:2},{color:'red',name:'I一字',row:0,col:4,rotation:1},{color:'yellow',name:'X十字',row:1,col:5,rotation:1},{color:'green',name:'L三连',row:0,col:6,rotation:2},{color:'yellow',name:'L拐角',row:6,col:4,rotation:0},{color:'yellow',name:'W阶梯',row:3,col:5,rotation:3}]),
+  // L90: 40 cells, 11 pieces
+  genLevel([{color:'red',name:'单格',row:0,col:5,rotation:3},{color:'yellow',name:'双格',row:0,col:6,rotation:0},{color:'red',name:'I一字',row:0,col:4,rotation:1},{color:'blue',name:'Z折线',row:1,col:5,rotation:1},{color:'green',name:'L三连',row:4,col:3,rotation:1},{color:'yellow',name:'X十字',row:3,col:5,rotation:1},{color:'green',name:'田字',row:0,col:2,rotation:1},{color:'yellow',name:'L拐角',row:6,col:4,rotation:0},{color:'green',name:'L长柄',row:4,col:1,rotation:1},{color:'green',name:'F异形',row:1,col:0,rotation:1},{color:'blue',name:'三连横',row:1,col:7,rotation:3}]),
+  // L91: 41 cells, 11 pieces
+  genLevel([{color:'green',name:'L三连',row:0,col:5,rotation:1},{color:'yellow',name:'X十字',row:1,col:5,rotation:3},{color:'red',name:'单格',row:0,col:4,rotation:3},{color:'blue',name:'Z折线',row:2,col:3,rotation:3},{color:'red',name:'V大拐',row:2,col:0,rotation:2},{color:'green',name:'L长柄',row:3,col:1,rotation:3},{color:'yellow',name:'L拐角',row:4,col:4,rotation:0},{color:'blue',name:'三连横',row:1,col:2,rotation:2},{color:'red',name:'U凹槽',row:5,col:4,rotation:1},{color:'green',name:'田字',row:0,col:0,rotation:3},{color:'yellow',name:'双格',row:4,col:0,rotation:1}]),
+  // L92: 42 cells, 11 pieces
+  genLevel([{color:'green',name:'F异形',row:0,col:3,rotation:3},{color:'red',name:'单格',row:1,col:2,rotation:3},{color:'blue',name:'T长柄',row:2,col:0,rotation:1},{color:'blue',name:'T字',row:3,col:4,rotation:3},{color:'green',name:'L三连',row:5,col:2,rotation:1},{color:'yellow',name:'W阶梯',row:5,col:5,rotation:2},{color:'blue',name:'三连横',row:0,col:0,rotation:1},{color:'yellow',name:'X十字',row:2,col:5,rotation:2},{color:'blue',name:'Z折线',row:5,col:0,rotation:3},{color:'red',name:'V大拐',row:0,col:5,rotation:2},{color:'yellow',name:'双格',row:4,col:0,rotation:1}]),
+  // L93: 41 cells, 11 pieces
+  genLevel([{color:'red',name:'I一字',row:0,col:1,rotation:3},{color:'red',name:'单格',row:1,col:0,rotation:1},{color:'green',name:'L三连',row:3,col:2,rotation:2},{color:'red',name:'U凹槽',row:5,col:1,rotation:2},{color:'red',name:'V大拐',row:0,col:2,rotation:1},{color:'blue',name:'三连横',row:7,col:0,rotation:0},{color:'green',name:'田字',row:2,col:4,rotation:2},{color:'yellow',name:'L拐角',row:3,col:0,rotation:2},{color:'blue',name:'T长柄',row:4,col:4,rotation:1},{color:'yellow',name:'W阶梯',row:0,col:5,rotation:0},{color:'yellow',name:'双格',row:7,col:3,rotation:2}]),
+  // L94: 43 cells, 10 pieces
+  genLevel([{color:'red',name:'I一字',row:0,col:0,rotation:0},{color:'green',name:'F异形',row:1,col:3,rotation:3},{color:'red',name:'U凹槽',row:4,col:4,rotation:0},{color:'blue',name:'Z折线',row:1,col:0,rotation:0},{color:'green',name:'田字',row:6,col:4,rotation:2},{color:'yellow',name:'X十字',row:5,col:1,rotation:2},{color:'blue',name:'三连横',row:1,col:6,rotation:1},{color:'red',name:'V大拐',row:3,col:0,rotation:1},{color:'blue',name:'T字',row:5,col:6,rotation:1},{color:'yellow',name:'L拐角',row:4,col:1,rotation:0}]),
+  // L95: 42 cells, 10 pieces
+  genLevel([{color:'yellow',name:'双格',row:1,col:1,rotation:0},{color:'red',name:'U凹槽',row:2,col:2,rotation:1},{color:'red',name:'V大拐',row:4,col:2,rotation:3},{color:'yellow',name:'W阶梯',row:4,col:5,rotation:0},{color:'green',name:'L长柄',row:1,col:0,rotation:3},{color:'yellow',name:'L拐角',row:1,col:3,rotation:0},{color:'yellow',name:'X十字',row:2,col:5,rotation:2},{color:'green',name:'L三连',row:5,col:1,rotation:1},{color:'green',name:'田字',row:0,col:6,rotation:2},{color:'blue',name:'T字',row:6,col:4,rotation:2}]),
+  // L96: 44 cells, 11 pieces
+  genLevel([{color:'green',name:'L长柄',row:0,col:0,rotation:2},{color:'yellow',name:'L拐角',row:2,col:2,rotation:1},{color:'blue',name:'Z折线',row:2,col:0,rotation:3},{color:'red',name:'U凹槽',row:2,col:5,rotation:2},{color:'red',name:'V大拐',row:4,col:4,rotation:1},{color:'yellow',name:'W阶梯',row:5,col:1,rotation:2},{color:'red',name:'单格',row:0,col:4,rotation:3},{color:'red',name:'I一字',row:4,col:7,rotation:1},{color:'green',name:'F异形',row:5,col:4,rotation:2},{color:'green',name:'田字',row:0,col:5,rotation:3},{color:'yellow',name:'双格',row:5,col:0,rotation:1}]),
+  // L97: 44 cells, 11 pieces
+  genLevel([{color:'yellow',name:'X十字',row:0,col:0,rotation:2},{color:'blue',name:'T字',row:3,col:0,rotation:1},{color:'green',name:'田字',row:0,col:3,rotation:2},{color:'red',name:'单格',row:1,col:5,rotation:2},{color:'blue',name:'T长柄',row:2,col:4,rotation:2},{color:'yellow',name:'W阶梯',row:2,col:2,rotation:1},{color:'red',name:'I一字',row:5,col:3,rotation:0},{color:'yellow',name:'L拐角',row:6,col:3,rotation:0},{color:'blue',name:'三连横',row:5,col:0,rotation:3},{color:'red',name:'V大拐',row:0,col:5,rotation:2},{color:'blue',name:'Z折线',row:5,col:1,rotation:1}]),
+  // L98: 44 cells, 11 pieces
+  genLevel([{color:'red',name:'V大拐',row:2,col:1,rotation:3},{color:'green',name:'L长柄',row:1,col:3,rotation:1},{color:'blue',name:'T字',row:4,col:4,rotation:2},{color:'red',name:'I一字',row:4,col:0,rotation:3},{color:'red',name:'U凹槽',row:1,col:0,rotation:0},{color:'blue',name:'T长柄',row:1,col:5,rotation:1},{color:'yellow',name:'X十字',row:5,col:1,rotation:2},{color:'red',name:'单格',row:0,col:0,rotation:2},{color:'green',name:'L三连',row:0,col:4,rotation:2},{color:'yellow',name:'W阶梯',row:5,col:5,rotation:3},{color:'yellow',name:'双格',row:0,col:1,rotation:2}]),
+  // L99: 45 cells, 12 pieces
+  genLevel([{color:'yellow',name:'X十字',row:0,col:0,rotation:0},{color:'green',name:'田字',row:2,col:2,rotation:1},{color:'green',name:'L长柄',row:0,col:4,rotation:3},{color:'blue',name:'T长柄',row:4,col:5,rotation:0},{color:'red',name:'I一字',row:4,col:2,rotation:1},{color:'green',name:'F异形',row:4,col:3,rotation:2},{color:'blue',name:'T字',row:4,col:0,rotation:3},{color:'yellow',name:'双格',row:0,col:3,rotation:1},{color:'yellow',name:'L拐角',row:2,col:5,rotation:0},{color:'blue',name:'三连横',row:7,col:4,rotation:2},{color:'red',name:'单格',row:6,col:1,rotation:0},{color:'green',name:'L三连',row:0,col:5,rotation:2}]),
+  // L100: 64 cells, 16 pieces
+  genLevel([{color:'red',name:'U凹槽',row:0,col:0,rotation:3},{color:'red',name:'V大拐',row:0,col:2,rotation:1},{color:'yellow',name:'W阶梯',row:4,col:5,rotation:2},{color:'yellow',name:'X十字',row:5,col:2,rotation:0},{color:'blue',name:'T长柄',row:0,col:5,rotation:1},{color:'green',name:'F异形',row:2,col:5,rotation:1},{color:'green',name:'L长柄',row:1,col:3,rotation:3},{color:'red',name:'I一字',row:7,col:4,rotation:0},{color:'yellow',name:'L拐角',row:3,col:1,rotation:1},{color:'blue',name:'T字',row:1,col:4,rotation:3},{color:'blue',name:'Z折线',row:5,col:4,rotation:0},{color:'green',name:'田字',row:3,col:0,rotation:0},{color:'blue',name:'三连横',row:5,col:0,rotation:1},{color:'green',name:'L三连',row:6,col:1,rotation:0},{color:'yellow',name:'双格',row:0,col:5,rotation:0},{color:'red',name:'单格',row:1,col:0,rotation:0}]),
+];
+
+
+/* ============================================================
+   State
+   ============================================================ */
+const state = {
+  level: 0,
+  maxReached: 0,   // highest level ever completed, loaded from profile
+  totalPlayTime: 0, // cumulative play time in seconds (from profile)
+  sessionStart: 0,  // timestamp when current session began
+  grid: null,
+  placedPieces: [], // [{color, cells:[{row,col}], idx}]
+  availablePieces: [], // [Piece]
+  selectedIdx: -1,
+  ghostCells: null,
+  ghostValid: false,
+  startTime: 0,
+  elapsed: 0,
+  timerInterval: null,
+  completed: false,
+};
+
+/* ============================================================
+   Toy SDK Wrapper — graceful fallback to localStorage
+   ============================================================ */
+const toyAPI = {
+  available: false,
+  user: null, // { nickname, avatar }
+
+  // Initialize: detect SDK support, load user profile and progress
+  async init() {
+    // Timeout: if SDK doesn't respond in 10s, use fallback
+    const timeout = new Promise(resolve => setTimeout(() => resolve(false), 10000));
+    const sdkCheck = (async () => {
+      // Wait for async SDK script to finish loading (poll every 500ms, up to 10s)
+      for (let i = 0; i < 20; i++) {
+        if (typeof window.toy !== 'undefined' && !!window.toy) break;
+        await new Promise(r => setTimeout(r, 500));
+      }
+      this.available = typeof window.toy !== 'undefined' && !!window.toy;
+      if (this.available) {
+        try { this.available = await window.toy.isSupport('getUserProfile'); } catch(e) { this.available = false; }
+      }
+      if (this.available) {
+        try { this.user = await window.toy.getUserProfile(); } catch(e) { this.available = false; }
+      }
+      return this.available;
+    })();
+    await Promise.race([sdkCheck, timeout]);
+    // Load saved progress
+    if (this.available) {
+      try {
+        const data = await window.toy.getCloudStorage(['maxLevel','totalTime']);
+        state.maxReached = parseInt(data.maxLevel || '0');
+        state.totalPlayTime = parseInt(data.totalTime || '0');
+      } catch(e) {}
+    }
+    // Always also check localStorage for backup (covers mixed sessions)
+    const ls = localStorage.getItem('blockChallenge_progress');
+    if (ls) {
+      try {
+        const p = JSON.parse(ls);
+        if ((p.maxLevel || 0) > state.maxReached) state.maxReached = p.maxLevel;
+        if ((p.totalTime || 0) > state.totalPlayTime) state.totalPlayTime = p.totalTime;
+      } catch(e) {}
+    }
+  },
+
+  // Save progress: SDK cloud + leaderboard submission + localStorage fallback
+  async saveProgress(levelIdx) {
+    const cleared = levelIdx + 1;
+    if (cleared > state.maxReached) {
+      state.maxReached = cleared;
+    }
+    // Save to cloud storage (SDK) + localStorage (backup)
+    if (this.available) {
+      try {
+        await window.toy.setCloudStorage({
+          maxLevel: String(state.maxReached),
+          totalTime: String(state.totalPlayTime)
+        });
+      } catch(e) {}
+      try {
+        await window.toy.submitScore({ board: 1, score: state.maxReached });
+      } catch(e) {}
+      try {
+        await window.toy.submitScore({ board: 2, score: state.totalPlayTime });
+      } catch(e) {}
+    }
+    // Always write to localStorage as backup
+    localStorage.setItem('blockChallenge_progress', JSON.stringify({
+      maxLevel: state.maxReached,
+      totalTime: state.totalPlayTime
+    }));
+    updateProgress();
+  },
+
+  // Accumulate play time (called periodically and on unload)
+  accumulatePlayTime() {
+    if (!state.sessionStart) return;
+    const now = Date.now();
+    const elapsedSec = Math.floor((now - state.sessionStart) / 1000);
+    if (elapsedSec > 0) {
+      state.totalPlayTime += elapsedSec;
+      state.sessionStart = now;
+      if (this.available) {
+        try {
+          window.toy.setCloudStorage({
+            maxLevel: String(state.maxReached),
+            totalTime: String(state.totalPlayTime)
+          });
+        } catch(e) {}
+      }
+      localStorage.setItem('blockChallenge_progress', JSON.stringify({
+        maxLevel: state.maxReached,
+        totalTime: state.totalPlayTime
+      }));
+    }
+  },
+
+  // Get leaderboard data (from SDK or localStorage)
+  async getLeaderboard(tab) {
+    if (this.available) {
+      const board = tab === 'time' ? 2 : 1;
+      try {
+        return await window.toy.getRankList({ board, period: 'all', limit: 100 });
+      } catch(e) {}
+    }
+    // Fallback: return null (use localStorage data)
+    return null;
+  },
+
+  // Get user display info
+  getDisplayName() {
+    if (this.available && this.user) return this.user.nickname;
+    return '玩家';
+  },
+  getAvatar() {
+    if (this.available && this.user) return this.user.avatar;
+    return null;
+  },
+  isSDK() { return this.available; },
+};
+
+function updateProfileDisplay() {
+  const name = toyAPI.getDisplayName();
+  const avatar = toyAPI.getAvatar();
+  const el = document.getElementById('profile-name');
+  if (avatar) {
+    el.innerHTML = `<img src="${avatar}@20w_20h.webp" style="width:18px;height:18px;border-radius:50%;vertical-align:middle;margin-right:4px"><span style="vertical-align:middle">${name}</span>`;
+  } else {
+    el.textContent = '👤 ' + name;
+  }
+  updateProgress();
+}
+
+function saveProgress(levelIdx) {
+  toyAPI.saveProgress(levelIdx);
+  updateProgress();
+}
+
+function accumulatePlayTime() {
+  toyAPI.accumulatePlayTime();
+}
+
+function updateProgress() {
+  document.getElementById('progress-display').textContent =
+    `已过 ${state.maxReached}/${LEVELS.length} 关`;
+}
+
+const dragPtr = { active: false, x: 0, y: 0, idx: -1 };
+
+/* ============================================================
+   Canvas
+   ============================================================ */
+const canvas = document.getElementById('board');
+const ctx = canvas.getContext('2d');
+let CELL = 0, boardPad = 0, boardX = 0, boardY = 0;
+
+function resize() {
+  const rect = canvas.parentElement.getBoundingClientRect();
+  const size = Math.min(rect.width - 16, 420);
+  const dpr = window.devicePixelRatio || 1;
+  canvas.style.width = size + 'px';
+  canvas.style.height = size + 'px';
+  canvas.width = size * dpr;
+  canvas.height = size * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  CELL = size / (GRID + 2);
+  boardPad = CELL;
+  boardX = boardPad;
+  boardY = boardPad;
+}
+
+function rdRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+function drawBoard() {
+  const w = canvas.width / (window.devicePixelRatio || 1);
+  const h = canvas.height / (window.devicePixelRatio || 1);
+  ctx.clearRect(0, 0, w, h);
+  const gap = 1;
+  const sz = CELL - gap * 2;
+
+  // Grid lines
+  ctx.strokeStyle = 'rgba(255,255,255,0.025)';
+  ctx.lineWidth = 0.5;
+  for (let i = 0; i <= GRID; i++) {
+    const x = boardX + i * CELL, y = boardY + i * CELL;
+    ctx.beginPath(); ctx.moveTo(x, boardY); ctx.lineTo(x, boardY + GRID * CELL); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(boardX, y); ctx.lineTo(boardX + GRID * CELL, y); ctx.stroke();
+  }
+
+  const level = LEVELS[state.level];
+
+  // Draw cells
+  for (let r = 0; r < GRID; r++) {
+    for (let c = 0; c < GRID; c++) {
+      const x = boardX + c * CELL + gap;
+      const y = boardY + r * CELL + gap;
+      const placed = state.grid[r][c];
+      const isActive = level.map[r][c] === 1;
+
+      if (placed) {
+        // Placed piece cell
+        drawCell(x, y, sz, COLOR_HEX[placed.color], COLOR_GLOW[placed.color], false, 1);
+      } else if (isActive) {
+        // Empty active cell — bright enough to see clearly
+        drawCell(x, y, sz, '#3a3a70', 'rgba(100,130,255,0.25)', true, 1);
+      } else {
+        // Inactive
+        drawCell(x, y, sz, '#0a0a14', 'transparent', false, 1);
+      }
+    }
+  }
+
+  // Ghost preview — white glow to mark the piece's position during drag
+  if (state.dragCells && !state.completed) {
+    for (const {row, col} of state.dragCells) {
+      const x = boardX + col * CELL + gap;
+      const y = boardY + row * CELL + gap;
+      if (state.dragValid) {
+        ctx.shadowColor = 'rgba(255,255,255,0.6)';
+        ctx.shadowBlur = 12;
+        ctx.fillStyle = 'rgba(255,255,255,0.2)';
+        rdRect(ctx, x, y, sz, sz, sz*0.1); ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.strokeStyle = 'rgba(255,255,255,0.8)';
+        ctx.lineWidth = 2;
+        rdRect(ctx, x, y, sz, sz, sz*0.1); ctx.stroke();
+      } else {
+        ctx.fillStyle = 'rgba(255,68,68,0.12)';
+        rdRect(ctx, x, y, sz, sz, sz*0.1); ctx.fill();
+        ctx.strokeStyle = 'rgba(255,68,68,0.5)';
+        ctx.lineWidth = 2;
+        rdRect(ctx, x, y, sz, sz, sz*0.1); ctx.stroke();
+      }
+    }
+  }
+
+  // Completion green glow
+  if (state.completed) {
+    for (let r = 0; r < GRID; r++) {
+      for (let c = 0; c < GRID; c++) {
+        if (level.map[r][c]) {
+          const x = boardX + c * CELL + gap;
+          const y = boardY + r * CELL + gap;
+          ctx.shadowColor = 'rgba(68,255,136,0.3)';
+          ctx.shadowBlur = 12;
+          ctx.strokeStyle = 'rgba(68,255,136,0.4)';
+          ctx.lineWidth = 1.5;
+          rdRect(ctx, x, y, sz, sz, sz*0.1);
+          ctx.stroke();
+          ctx.shadowBlur = 0;
+        }
+      }
+    }
+  }
+}
+
+function drawCell(x, y, sz, fill, glow, border, alpha) {
+  ctx.globalAlpha = alpha;
+  ctx.shadowColor = glow;
+  ctx.shadowBlur = glow !== 'transparent' ? 6 : 0;
+  ctx.fillStyle = fill;
+  rdRect(ctx, x, y, sz, sz, sz * 0.1);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  if (border) {
+    ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+    ctx.lineWidth = 0.5;
+    rdRect(ctx, x, y, sz, sz, sz * 0.1);
+    ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+}
+
+/* ============================================================
+   Palette rendering
+   ============================================================ */
+
+function drawPiecePreview(btn, piece) {
+  const col = piece.color;
+  const cells = piece.cells;
+  const maxR = Math.max(...cells.map(c => c[0]));
+  const maxC = Math.max(...cells.map(c => c[1]));
+  const cs = 11;
+  const pw = (maxC + 1) * cs + 4;
+  const ph = (maxR + 1) * cs + 4;
+  const ox = Math.floor((64 - pw) / 2);
+  const oy = Math.floor((56 - ph) / 2);
+  for (const [r, c] of cells) {
+    const div = document.createElement("div");
+    div.style.cssText = [
+      "position:absolute",
+      "left:" + (ox + c * cs + 2) + "px",
+      "top:" + (oy + r * cs + 2) + "px",
+      "width:" + (cs - 2) + "px",
+      "height:" + (cs - 2) + "px",
+      "background:" + COLOR_HEX[col],
+      "border-radius:2px",
+      "box-shadow:0 0 5px " + COLOR_GLOW[col],
+    ].join(";");
+    btn.appendChild(div);
+  }
+}
+
+function renderPalette() {
+  const container = document.getElementById("palette-pieces");
+  container.innerHTML = "";
+  if (!state.availablePieces.length) {
+    container.innerHTML = '<span style="color:rgba(255,255,255,0.2);font-size:13px;">✓ 全部放好啦!</span>';
+    return;
+  }
+  state.availablePieces.forEach((piece, idx) => {
+    const btn = document.createElement("div");
+    btn.className = "piece-btn" + (state.dragIdx === idx ? " selected" : "");
+    btn.style.cssText = "position:relative;width:64px;height:56px;";
+    drawPiecePreview(btn, piece);
+    btn.addEventListener("pointerdown", function(e) {
+      if (e.pointerType !== 'touch' && e.pointerType !== 'mouse') return;
+      e.preventDefault();
+      if (state.completed) return;
+      state.dragIdx = idx;
+      dragPtr.active = true;
+      dragPtr.x = e.clientX; dragPtr.y = e.clientY;
+      dragPtr.idx = idx;
+      btn.setPointerCapture(e.pointerId);
+      renderPalette();
+    });
+    container.appendChild(btn);
+  });
+  // Sync rotate button highlight
+  const rb = document.getElementById('btn-rotate');
+  if (state.dragIdx >= 0 && !state.completed && state.availablePieces.length) {
+    rb.classList.add('active');
+  } else {
+    rb.classList.remove('active');
+  }
+  // Sync reset button highlight — active when pieces have been placed
+  const resetBtn = document.getElementById('btn-reset');
+  if (state.placedPieces.length > 0 && !state.completed) {
+    resetBtn.classList.add('active');
+  } else {
+    resetBtn.classList.remove('active');
+  }
+  // Sync undo button highlight — same logic as reset
+  const undoBtn = document.getElementById('btn-undo');
+  if (state.placedPieces.length > 0 && !state.completed) {
+    undoBtn.classList.add('active');
+  } else {
+    undoBtn.classList.remove('active');
+  }
+}
+
+
+function initLevel(idx) {
+  stopTimer();
+  state.level = idx;
+  state.grid = Array.from({length: GRID}, () => Array(GRID).fill(null));
+  state.placedPieces = [];
+  state.dragIdx = -1;
+  state.dragCells = null;
+  state.completed = false;
+  dragPtr.active = false;
+
+  const lvl = LEVELS[idx];
+  state.availablePieces = lvl.pieces.map(pd => {
+    const def = getDef(pd.color, pd.name);
+    return new Piece(pd.color, def.cells.map(c => [...c]), pd.name);
+  });
+
+  document.getElementById('level-display').textContent = idx + 1;
+  renderPalette();
+  resize();
+  drawBoard();
+  state.startTime = Date.now();
+  startTimer();
+}
+
+function tryPlace(idx, row, col) {
+  if (idx < 0 || state.completed) return false;
+  const piece = state.availablePieces[idx];
+  const lvl = LEVELS[state.level];
+  const absCells = [];
+  for (const [pr, pc] of piece.cells) {
+    const ar = row + pr, ac = col + pc;
+    if (ar < 0 || ar >= GRID || ac < 0 || ac >= GRID) return false;
+    if (lvl.map[ar][ac] !== 1) return false;
+    if (state.grid[ar][ac] !== null) return false;
+    absCells.push({row: ar, col: ac});
+  }
+  state.placedPieces.push({
+    color: piece.color, name: piece.name,
+    origCells: piece._cells.map(c => [...c]),
+    cells: absCells,
+  });
+  for (const {row, col} of absCells) state.grid[row][col] = { color: piece.color };
+  state.availablePieces.splice(idx, 1);
+  state.dragIdx = -1;
+  state.dragCells = null;
+
+  let done = true;
+  for (let r = 0; r < GRID && done; r++)
+    for (let c = 0; c < GRID && done; c++)
+      if (lvl.map[r][c] === 1 && state.grid[r][c] === null) done = false;
+  if (done) {
+    state.completed = true; stopTimer();
+    state.elapsed = Date.now() - state.startTime;
+    showCompletion();
+  }
+  renderPalette();
+  drawBoard();
+  return true;
+}
+
+function undoLast() {
+  if (!state.placedPieces.length || state.completed) return;
+  const last = state.placedPieces.pop();
+  for (const {row, col} of last.cells) state.grid[row][col] = null;
+  state.availablePieces.push(new Piece(last.color, last.origCells.map(c => [...c]), last.name));
+  state.dragIdx = -1;
+  state.dragCells = null;
+  renderPalette();
+  drawBoard();
+}
+/* ============================================================
+   Completion overlay
+   ============================================================ */
+function showCompletion() {
+  const ms = state.elapsed;
+  const secs = Math.floor(ms / 1000);
+  const mins = Math.floor(secs / 60);
+  const s = secs % 60;
+  const timeStr = `${mins}:${String(s).padStart(2,'0')}`;
+  const isLast = state.level >= LEVELS.length - 1;
+
+  // Accumulate play time and save to profile
+  accumulatePlayTime();
+  saveProgress(state.level);  // persist highest cleared level
+
+  if (isLast) {
+    showOverlay(
+      '🎉',
+      `第 ${state.level + 1} 关 · 通关！`,
+      '所有积木全部拼好！',
+      `⏱ ${timeStr} · 🧩 ${state.placedPieces.length} 块`,
+      '全部 100 关通关！',
+      '🏆 查看排行榜',
+      () => { hideOverlay(); showLeaderboard('time'); }
+    );
+  } else {
+    showOverlay(
+      '🎉',
+      `第 ${state.level + 1} 关 · 通关！`,
+      '所有积木全部拼好！',
+      `⏱ ${timeStr} · 🧩 ${state.placedPieces.length} 块`,
+      `即将进入第 ${state.level + 2} 关`,
+      '下一关 →',
+      () => { nextLevel(); }
+    );
+  }
+}
+
+function showOverlay(emoji, title, desc, stats, sub, btnText, btnFn, cancelText, cancelFn) {
+  document.getElementById('ov-emoji').textContent = emoji;
+  document.getElementById('ov-title').textContent = title;
+  document.getElementById('ov-desc').textContent = desc;
+  const st = document.getElementById('ov-stats');
+  st.style.display = stats ? 'block' : 'none';
+  st.textContent = stats || '';
+  document.getElementById('ov-sub').textContent = sub || '';
+  const btn = document.getElementById('ov-btn');
+  btn.textContent = btnText;
+  btn.onpointerdown = (e) => { e.preventDefault(); btnFn(); };
+  window._ovBtnFn = btnFn;
+  const cbtn = document.getElementById('ov-btn-cancel');
+  if (cancelText) {
+    cbtn.textContent = cancelText;
+    cbtn.style.display = 'block';
+    cbtn.onpointerdown = (e) => { e.preventDefault(); cancelFn(); };
+  } else {
+    cbtn.style.display = 'none';
+  }
+  document.getElementById('overlay').classList.add('show');
+}
+
+function hideOverlay() { document.getElementById('overlay').classList.remove('show'); }
+
+function nextLevel() {
+  hideOverlay();
+  const next = state.level + 1;
+  if (next < LEVELS.length && next <= state.maxReached) {
+    initLevel(next);
+  } else {
+    showOverlay('🔒', '已通关全部关卡！', '你已经完成了所有挑战', '', '', '🏆 重头再来', () => { hideOverlay(); initLevel(0); });
+  }
+}
+
+/* ============================================================
+   Timer
+   ============================================================ */
+function startTimer() {
+  stopTimer();
+  state.startTime = Date.now();
+  state.timerInterval = setInterval(() => {
+    const ms = Date.now() - state.startTime;
+    const secs = Math.floor(ms / 1000);
+    const s = secs % 60, m = Math.floor(secs / 60);
+    document.getElementById('timer-display').textContent = `${m}:${String(s).padStart(2,'0')}`;
+  }, 200);
+}
+function stopTimer() {
+  if (state.timerInterval) { clearInterval(state.timerInterval); state.timerInterval = null; }
+}
+
+/* ============================================================
+   Ghost preview
+   ============================================================ */
+function getGhost(idx, row, col) {
+  if (idx < 0 || state.completed) return null;
+  const piece = state.availablePieces[idx];
+  if (!piece) return null;
+  const lvl = LEVELS[state.level];
+  const cells = [];
+  let valid = true;
+  for (const [pr, pc] of piece.cells) {
+    const ar = row + pr, ac = col + pc;
+    if (ar < 0 || ar >= GRID || ac < 0 || ac >= GRID) { valid = false; continue; }
+    if (lvl.map[ar][ac] !== 1 || state.grid[ar][ac] !== null) { valid = false; }
+    cells.push({row: ar, col: ac});
+  }
+  return { cells, valid };
+}
+
+/* ============================================================
+   Grid position from pointer coords
+   ============================================================ */
+function gridFromPoint(clientX, clientY) {
+  const rect = canvas.getBoundingClientRect();
+  const scale = (canvas.width / (window.devicePixelRatio || 1)) / rect.width;
+  const cx = clientX - rect.left;
+  const cy = clientY - rect.top;
+  const col = Math.floor((cx * scale - boardX) / CELL);
+  const row = Math.floor((cy * scale - boardY) / CELL);
+  if (row >= 0 && row < GRID && col >= 0 && col < GRID) return {row, col};
+  return null;
+}
+
+/* ============================================================
+   Drag system (pointer tracking across page)
+   ============================================================ */
+function handlePointerMove(clientX, clientY) {
+  if (state.dragIdx < 0 || !dragPtr.active) return;
+  dragPtr.x = clientX;
+  dragPtr.y = clientY;
+  const pos = gridFromPoint(clientX, clientY);
+  if (pos) {
+    // Cursor is over the board — show ghost at exact position
+    const g = getGhost(state.dragIdx, pos.row, pos.col);
+    state.dragCells = g ? g.cells : null;
+    state.dragValid = g ? g.valid : false;
+  } else {
+    // Cursor is outside the board — clamp to nearest edge cell so ghost still shows
+    const rect = canvas.getBoundingClientRect();
+    const scale = (canvas.width / (window.devicePixelRatio || 1)) / rect.width;
+    const cx = clientX - rect.left;
+    const cy = clientY - rect.top;
+    let col = Math.floor((cx * scale - boardX) / CELL);
+    let row = Math.floor((cy * scale - boardY) / CELL);
+    col = Math.max(0, Math.min(GRID - 1, col));
+    row = Math.max(0, Math.min(GRID - 1, row));
+    const g = getGhost(state.dragIdx, row, col);
+    state.dragCells = g ? g.cells : null;
+    state.dragValid = false; // outside board = can't place
+  }
+  drawBoard();
+}
+
+function handlePointerUp(clientX, clientY) {
+  if (state.dragIdx < 0) return;
+  const pos = gridFromPoint(clientX, clientY);
+  if (pos) {
+    const g = getGhost(state.dragIdx, pos.row, pos.col);
+    if (g && g.valid) {
+      tryPlace(state.dragIdx, pos.row, pos.col);
+      dragPtr.active = false;
+      return;
+    }
+    // Invalid drop - flash red, keep piece selected
+    state.dragCells = g ? g.cells : null;
+    state.dragValid = false;
+    drawBoard();
+    setTimeout(() => { state.dragCells = null; drawBoard(); }, 250);
+  }
+  // Keep piece selected for rotate; stop active dragging
+  dragPtr.active = false;
+  state.dragCells = null;
+  renderPalette();
+  drawBoard();
+}
+
+// Pointer events — unified mouse + touch handling
+document.addEventListener("pointermove", (e) => {
+  if (state.dragIdx < 0 || !dragPtr.active) return;
+  handlePointerMove(e.clientX, e.clientY);
+});
+
+document.addEventListener("pointerup", (e) => {
+  if (state.dragIdx < 0) return;
+  handlePointerUp(e.clientX, e.clientY);
+});
+
+// Start dragging from board when a piece is already selected
+canvas.addEventListener("pointerdown", function(e) {
+  if (e.pointerType !== 'touch' && e.pointerType !== 'mouse') return;
+  if (state.dragIdx >= 0 && !dragPtr.active && !state.completed) {
+    e.preventDefault();
+    dragPtr.active = true;
+    dragPtr.x = e.clientX; dragPtr.y = e.clientY;
+    canvas.setPointerCapture(e.pointerId);
+    handlePointerMove(e.clientX, e.clientY);
+  }
+});
+/* ============================================================
+   Button events
+   ============================================================ */
+function handleRotate() {
+  if (state.dragIdx < 0 || state.completed) return;
+  state.availablePieces[state.dragIdx].rotate();
+  state.dragCells = null;
+  renderPalette(); drawBoard();
+}
+function handleReset() {
+  showOverlay(
+    '🔄', '重新开始？',
+    '当前关卡的进度将会丢失',
+    '', '',
+    '确定重开',
+    () => { hideOverlay(); initLevel(state.level); },
+    '取消',
+    hideOverlay
+  );
+}
+// Use pointerdown instead of click for reliable mobile tap response
+document.getElementById('btn-rotate').addEventListener('pointerdown', (e) => { e.preventDefault(); handleRotate(); });
+document.getElementById('btn-undo').addEventListener('pointerdown', (e) => { e.preventDefault(); undoLast(); });
+document.getElementById('btn-reset').addEventListener('pointerdown', (e) => { e.preventDefault(); handleReset(); });
+
+/* ============================================================
+   Keyboard shortcuts
+   ============================================================ */
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'r' || e.key === 'R') handleRotate();
+  if (e.key === 'z' || e.key === 'Z') undoLast();
+  if (e.key === 'Escape') {
+    state.dragIdx = -1; state.dragCells = null; dragPtr.active = false;
+    renderPalette(); drawBoard();
+  }
+  if (e.key === 'Enter' && document.getElementById('overlay').classList.contains('show')) {
+    if (window._ovBtnFn) window._ovBtnFn();
+  }
+});
+
+/* ============================================================
+   Resize
+   ============================================================ */
+window.addEventListener('resize', () => { resize(); drawBoard(); });
+
+/* ============================================================
+   Leaderboard — ranks all profiles by play time or levels
+   ============================================================ */
+let currentLbTab = 'time';
+
+function formatTime(totalSec) {
+  const h = Math.floor(totalSec / 3600);
+  const m = Math.floor((totalSec % 3600) / 60);
+  const s = totalSec % 60;
+  if (h > 0) return `${h}时${m}分`;
+  return `${m}分${s}秒`;
+}
+
+function renderLeaderboard(tab) {
+  currentLbTab = tab;
+  document.getElementById('lb-tab-time').classList.toggle('active', tab === 'time');
+  document.getElementById('lb-tab-level').classList.toggle('active', tab === 'levels');
+
+  const container = document.getElementById('lb-content');
+  container.innerHTML = '<div class="lb-empty">加载中…</div>';
+
+  // Try SDK first
+  toyAPI.getLeaderboard(tab).then(sdkList => {
+    let sorted, myNickname, isSDK;
+
+    if (sdkList && sdkList.length > 0) {
+      // SDK data — already sorted by server
+      sorted = sdkList;
+      myNickname = toyAPI.isSDK() ? toyAPI.getDisplayName() : '';
+      isSDK = true;
+    } else {
+      // Fallback: localStorage
+      const ls = localStorage.getItem('blockChallenge_progress');
+      const myData = ls ? JSON.parse(ls) : null;
+      const localList = [];
+      if (myData && (myData.maxLevel > 0 || myData.totalTime > 0)) {
+        localList.push({
+          nickname: toyAPI.getDisplayName() || '玩家',
+          avatar: '',
+          score: tab === 'levels' ? myData.maxLevel : myData.totalTime
+        });
+      }
+      sorted = localList;
+      myNickname = toyAPI.getDisplayName();
+      isSDK = false;
+    }
+
+    const rankClass = ['', 'lb-rank-1', 'lb-rank-2', 'lb-rank-3'];
+    const rows = sorted.map((r, i) => {
+      const score = r.score || 0;
+      const rc = i < 3 ? rankClass[i + 1] : '';
+      const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : (i + 1);
+      const isMe = isSDK ? (r.nickname === myNickname) : (i === 0);
+      const nameStyle = isMe ? 'color:#ffd93d;font-weight:600' : '';
+      const avatarHtml = r.avatar ? `<img src="${r.avatar}@24w_24h.webp" style="width:20px;height:20px;border-radius:50%;vertical-align:middle;margin-right:6px">` : '';
+      let scoreStr;
+      if (tab === 'levels') {
+        scoreStr = score + ' 关';
+      } else {
+        // score is totalTime in seconds for time ranking
+        scoreStr = formatTime(score);
+      }
+      return `<tr>
+        <td class="${rc}">${medal}</td>
+        <td>${avatarHtml}<span style="${nameStyle}">${r.nickname || '匿名'}</span></td>
+        <td style="text-align:center">${scoreStr}</td>
+      </tr>`;
+    }).join('');
+
+    if (sorted.length === 0) {
+      container.innerHTML = '<div class="lb-empty">还没有玩家记录</div>';
+      return;
+    }
+
+    if (tab === 'levels') {
+      container.innerHTML = `<table class="lb-table">
+        <thead><tr><th></th><th>玩家</th><th style="text-align:center">过关</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+    } else {
+      container.innerHTML = `<table class="lb-table">
+        <thead><tr><th></th><th>玩家</th><th style="text-align:center">游玩时间</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+    }
+  });
+}
+
+function showLeaderboard(tab) {
+  renderLeaderboard(tab || currentLbTab);
+  document.getElementById('lb-overlay').classList.add('show');
+}
+
+function hideLeaderboard() {
+  document.getElementById('lb-overlay').classList.remove('show');
+}
+
+/* ============================================================
+   Local Profile Fallback (when Toy SDK is unavailable)
+   ============================================================ */
+let currentPlayerName = '';
+
+function setActiveName(name) {
+  try { localStorage.setItem('blockChallenge_activeProfile', name); } catch(e) {}
+}
+function getActiveName() {
+  try { return localStorage.getItem('blockChallenge_activeProfile') || ''; } catch(e) { return ''; }
+}
+
+function getProfiles() {
+  try { return JSON.parse(localStorage.getItem('blockChallenge_profiles') || '[]'); } catch(e) { return []; }
+}
+function saveProfiles(list) {
+  try { localStorage.setItem('blockChallenge_profiles', JSON.stringify(list)); } catch(e) {}
+}
+function getCurrentProfile() {
+  const profiles = getProfiles();
+  return profiles.find(p => p.name === currentPlayerName) || null;
+}
+function upsertProfile(name, updates) {
+  const profiles = getProfiles();
+  const idx = profiles.findIndex(p => p.name === name);
+  if (idx >= 0) {
+    profiles[idx] = { ...profiles[idx], ...updates, name };
+  } else {
+    profiles.push({ name, totalTime: 0, maxLevel: 0, date: new Date().toISOString(), ...updates });
+  }
+  saveProfiles(profiles);
+}
+function deleteProfile(name) {
+  let profiles = getProfiles();
+  profiles = profiles.filter(p => p.name !== name);
+  saveProfiles(profiles);
+}
+
+/* ============================================================
+   Profile Management UI
+   ============================================================ */
+function renderProfileList() {
+  const container = document.getElementById('profile-list');
+
+  // SDK mode: just show current user info, no switching
+  if (toyAPI.isSDK() && toyAPI.user) {
+    const u = toyAPI.user;
+    container.innerHTML = `<div class="profile-item active">
+      <span class="pi-name"><img src="${u.avatar}@32w_32h.webp" style="width:28px;height:28px;border-radius:50%;vertical-align:middle;margin-right:8px">${u.nickname}</span>
+      <span class="pi-stats">${state.maxReached || 0}关 · ${formatTime(state.totalPlayTime)}</span>
+    </div>`;
+    document.getElementById('profile-add').style.display = 'none';
+    return;
+  }
+
+  // Fallback mode: localStorage profiles
+  document.getElementById('profile-add').style.display = 'block';
+  const profiles = getProfiles();
+  const rows = profiles.map(p => {
+    const active = p.name === currentPlayerName;
+    const cls = active ? 'profile-item active' : 'profile-item';
+    const timeStr = formatTime(p.totalTime || 0);
+    return `<div class="${cls}" data-name="${p.name}">
+      <span class="pi-name">${active ? '✓ ' : ''}${p.name}</span>
+      <span class="pi-stats">${p.maxLevel || 0}关 · ${timeStr}</span>
+      ${profiles.length > 1 ? '<span class="pi-del" data-del="${p.name}">✕</span>' : ''}
+    </div>`;
+  }).join('');
+  container.innerHTML = rows || '<div class="lb-empty">暂无玩家</div>';
+
+  container.querySelectorAll('.profile-item').forEach(el => {
+    el.addEventListener('pointerdown', (e) => {
+      if (e.target.classList.contains('pi-del')) return;
+      e.preventDefault();
+      const name = el.dataset.name;
+      if (name !== currentPlayerName) {
+        switchProfile(name);
+      }
+    });
+  });
+  container.querySelectorAll('.pi-del').forEach(el => {
+    el.addEventListener('pointerdown', (e) => {
+      e.preventDefault(); e.stopPropagation();
+      const name = el.dataset.del;
+      if (confirm(`确定删除玩家「${name}」的所有记录吗？`)) {
+        deleteProfile(name);
+        if (name === currentPlayerName) {
+          const remaining = getProfiles();
+          if (remaining.length > 0) {
+            switchProfile(remaining[0].name);
+          } else {
+            const newName = '玩家1';
+            upsertProfile(newName, { maxLevel: 0, totalTime: 0 });
+            switchProfile(newName);
+          }
+        }
+        renderProfileList();
+      }
+    });
+  });
+}function switchProfile(name) {
+  // Save current session time before switching
+  accumulatePlayTime();
+  currentPlayerName = name;
+  setActiveName(name);
+  const p = getCurrentProfile();
+  state.maxReached = p ? p.maxLevel || 0 : 0;
+  state.totalPlayTime = p ? p.totalTime || 0 : 0;
+  state.sessionStart = Date.now();
+  updateProfileDisplay();
+  hideProfileOverlay();
+  hideOverlay(); // close any open overlays (welcome, completion, etc.)
+  initLevel(0);
+}
+
+function showProfileOverlay() {
+  renderProfileList();
+  document.getElementById('profile-overlay').classList.add('show');
+}
+
+function hideProfileOverlay() {
+  document.getElementById('profile-overlay').classList.remove('show');
+}
+
+function createNewProfile() {
+  const name = prompt('输入新玩家名称：');
+  if (!name || !name.trim()) return;
+  const trimmed = name.trim();
+  if (getProfiles().some(p => p.name === trimmed)) {
+    alert('该名称已存在！');
+    return;
+  }
+  accumulatePlayTime(); // save current session
+  upsertProfile(trimmed, { maxLevel: 0, totalTime: 0 });
+  switchProfile(trimmed);
+  renderProfileList();
+}
+
+/* ============================================================
+   Init
+   ============================================================ */
+function init(){
+  state.sessionStart = Date.now();
+  setInterval(accumulatePlayTime, 30000);
+  window.addEventListener('beforeunload', () => { accumulatePlayTime(); });
+
+  resize();
+  updateProfileDisplay();
+  
+  // Show overlay immediately with default "开始挑战"
+  showOverlay(
+    '🧩',
+    '积木大比拼',
+    '用不同形状的积木块\n填满亮光的棋盘区域',
+    '',
+    '共 100 关 · 由易到难\n拖拽积木到棋盘上放置\n⬜ 白框 = 可放置  🟥 红框 = 不可放',
+    '加载中…',
+    () => {}
+  );
+
+  // Load SDK data and progress in background (non-blocking)
+  toyAPI.init().then(() => {
+    // If SDK not available, set up fallback localStorage profile
+    if (!toyAPI.isSDK()) {
+      let lsName = localStorage.getItem('blockChallenge_activeProfile') || '';
+      const profiles = getProfiles();
+      if (!lsName || !profiles.some(p => p.name === lsName)) {
+        lsName = profiles.length > 0 ? profiles[0].name : '';
+        if (!lsName) { lsName = '玩家1'; upsertProfile(lsName, { maxLevel: 0, totalTime: 0 }); }
+        localStorage.setItem('blockChallenge_activeProfile', lsName);
+      }
+      currentPlayerName = lsName;
+      const p = getCurrentProfile();
+      if (p) {
+        if (p.maxLevel > state.maxReached) state.maxReached = p.maxLevel;
+        if (p.totalTime > state.totalPlayTime) state.totalPlayTime = p.totalTime;
+      }
+    }
+    updateProfileDisplay();
+    
+    // Update overlay with correct resume point
+    const resumeLevel = state.maxReached; // maxReached = number of cleared levels
+    if (resumeLevel > 0) {
+      showOverlay(
+        '🧩',
+        '积木大比拼',
+        '用不同形状的积木块\n填满亮光的棋盘区域',
+        '已解锁 ' + resumeLevel + '/' + LEVELS.length + ' 关',
+        '共 100 关 · 由易到难\n拖拽积木到棋盘上放置\n⬜ 白框 = 可放置  🟥 红框 = 不可放',
+        '继续挑战→第' + (resumeLevel + 1) + '关',
+        () => { hideOverlay(); initLevel(resumeLevel < LEVELS.length ? resumeLevel : 0); }
+      );
+    } else {
+      showOverlay(
+        '🧩',
+        '积木大比拼',
+        '用不同形状的积木块\n填满亮光的棋盘区域',
+        '',
+        '共 100 关 · 由易到难\n拖拽积木到棋盘上放置\n⬜ 白框 = 可放置  🟥 红框 = 不可放',
+        '开始挑战！',
+        () => { hideOverlay(); initLevel(0); }
+      );
+    }
+  }).catch(() => {
+    // If SDK init fails, just keep default state
+    updateProfileDisplay();
+    showOverlay(
+      '🧩',
+      '积木大比拼',
+      '用不同形状的积木块\n填满亮光的棋盘区域',
+      '',
+      '共 100 关 · 由易到难\n拖拽积木到棋盘上放置\n⬜ 白框 = 可放置  🟥 红框 = 不可放',
+      '开始挑战！',
+      () => { hideOverlay(); initLevel(0); }
+    );
+  });
+}
+
+// Leaderboard button
+document.getElementById('lb-badge').addEventListener('pointerdown', (e) => {
+  e.preventDefault();
+  showLeaderboard('time');
+});
+// Profile overlay: add new player
+document.getElementById('profile-add').addEventListener('pointerdown', (e) => {
+  e.preventDefault();
+  createNewProfile();
+});
+
+// Profile overlay: close
+document.getElementById('profile-close').addEventListener('pointerdown', (e) => {
+  e.preventDefault();
+  hideProfileOverlay();
+});
+document.getElementById('profile-overlay').addEventListener('pointerdown', (e) => {
+  if (e.target === document.getElementById('profile-overlay')) hideProfileOverlay();
+});
+
+// Leaderboard tab switching
+document.getElementById('lb-tab-time').addEventListener('pointerdown', (e) => {
+  e.preventDefault();
+  renderLeaderboard('time');
+});
+document.getElementById('lb-tab-level').addEventListener('pointerdown', (e) => {
+  e.preventDefault();
+  renderLeaderboard('levels');
+});
+
+// Leaderboard close
+document.getElementById('lb-close').addEventListener('pointerdown', (e) => {
+  e.preventDefault();
+  hideLeaderboard();
+});
+
+// Close leaderboard on backdrop click
+document.getElementById('lb-overlay').addEventListener('pointerdown', (e) => {
+  if (e.target === document.getElementById('lb-overlay')) {
+    hideLeaderboard();
+  }
+});
+
+init();
+window.__game = { state, LEVELS, PIECE_DEFS, reset: () => initLevel(state.level) };
+</script>
+</body>
+</html>
